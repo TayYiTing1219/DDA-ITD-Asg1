@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class RandomIdle : MonoBehaviour
+public class RandomIdleStarter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Animator animator;
+    // Number of idle animations (e.g., 3: IDLE B1, IDLE A2, IDLE A1)
+    public int idleCount = 3;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animator = GetComponent<Animator>();
+        // Pick a random index (0 to idleCount-1)
+        int randomIdle = Random.Range(0, idleCount);
+        // Send the index to the Animator
+        animator.SetInteger("RandomIdleIndex", randomIdle);
     }
 }
