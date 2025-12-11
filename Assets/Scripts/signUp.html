@@ -6,7 +6,6 @@
     <title>BirdHaven - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="tooplate-eco-lume.css" rel="stylesheet">
-    <script type="module" src="Database.js"></script>
 <!--
 
 Tooplate 2145 Eco Lume
@@ -30,7 +29,7 @@ Free HTML CSS Template
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">
+            <a href="index.html#home" class="logo">
                 <div class="logo-icon"></div>
                 <span class="logo-text">BirdHaven</span>
             </a>
@@ -38,8 +37,8 @@ Free HTML CSS Template
     </nav>
     
     <!-- Login Section -->
-    <section class="signUp" id="signUp">
-        <div class="signUp-container">
+    <section class="signUpPage" id="signUp">
+        <div class="signUpPage-container">
             <div class="signUp-form">
                 <h2 class="section-title" style="text-align: left; margin-bottom: 40px; font-size: 2.5rem;">Create your BirdHaven account</h2>
                 <form id="signUpForm">
@@ -55,7 +54,7 @@ Free HTML CSS Template
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <button class="signUp-btn"><a href="index.html"></a>Sign Up</button>
+                    <button class="signUp-btn" id="signUp-btn">Sign Up</button>
                 </form>
             </div>
         </div>
@@ -88,6 +87,7 @@ Free HTML CSS Template
                     <li><a href="#">Terms of Service</a></li>
                     <li><a href="#">Legal</a></li>
                     <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="signUp.html">Join as a member</a></li>
                 </ul>
             </div>
             
@@ -98,6 +98,6 @@ Free HTML CSS Template
             <p>Designed by <a href="https://www.tooplate.com" target="_blank" rel="nofollow noopener">Tooplate</a></p>
         </div>
     </footer>
-<script src="signUp.js"></script>
+<script type="module" src="Database.js"></script>
 </body>
 </html>

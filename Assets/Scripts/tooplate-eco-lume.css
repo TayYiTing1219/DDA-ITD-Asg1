@@ -964,6 +964,43 @@ nav.scrolled {
 	animation-delay: -2s;
 }
 
+.growth-rings2 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.ring2 {
+	position: absolute;
+	border: 3px solid var(--accent-blue);
+	border-radius: 50%;
+	opacity: 0.3;
+	animation: expand-ring 4s ease-in-out infinite;
+}
+
+.ring2:nth-child(1) {
+	width: 100px;
+	height: 100px;
+	margin: -50px 0 0 -50px;
+	animation-delay: 0s;
+}
+
+.ring2:nth-child(2) {
+	width: 200px;
+	height: 200px;
+	margin: -100px 0 0 -100px;
+	animation-delay: -1s;
+	border-color: var(--warm-yellow);
+}
+
+.ring2:nth-child(3) {
+	width: 300px;
+	height: 300px;
+	margin: -150px 0 0 -150px;
+	animation-delay: -2s;
+}
+
 @keyframes expand-ring {
 
 	0%,
@@ -1310,6 +1347,51 @@ nav.scrolled {
 	color: rgba(255, 255, 255, 0.7);
 }
 
+/* AR Section */
+.ar {
+	padding: 30px 40px;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.ar-content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+	align-items: center;
+	margin-bottom: 120px;
+}
+
+.ar-content:last-child {
+	margin-bottom: 0;
+}
+
+.ar-text h2 {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 3rem;
+	font-weight: 700;
+	margin-bottom: 32px;
+	background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.ar-text p {
+	font-size: 1.2rem;
+	line-height: 1.7;
+	color: rgba(255, 255, 255, 0.8);
+	margin-bottom: 24px;
+}
+
+.ar-visual {
+	position: relative;
+	height: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 /* Login */
 .login {
 	padding: 120px 40px;
@@ -1361,12 +1443,12 @@ nav.scrolled {
 
 /* Signup */
 
-.signUp {
+.signUpPage {
 	padding: 120px 40px;
 	background: rgba(0, 255, 136, 0.03);
 }
 
-.signUp-container {
+.signUpPage-container {
 	max-width: 1400px;
 	margin: 0 auto;
 	display: grid;
@@ -1407,6 +1489,50 @@ nav.scrolled {
 .signUp-btn:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 12px 40px rgba(0, 255, 136, 0.3);
+}
+
+.signUp {
+	padding: 30px 40px;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.signUp-content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+	align-items: left;
+	margin-bottom: 120px;
+}
+
+.signUp-content:last-child {
+	margin-bottom: 0;
+}
+
+.signUp-text h2 {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 3rem;
+	font-weight: 700;
+	margin-bottom: 32px;
+	background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.signUp-text p {
+	font-size: 1.2rem;
+	line-height: 1.7;
+	color: rgba(255, 255, 255, 0.8);
+	margin-bottom: 24px;
+}
+
+.signUp-visual {
+	position: relative;
+	height: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Footer */

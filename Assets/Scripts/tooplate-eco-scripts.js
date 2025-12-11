@@ -107,7 +107,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
    submitBtn.disabled = true;
 
    setTimeout(() => {
-      alert('🌿 Message sent successfully! We\'ll sprout back to you soon.');
+      alert('🌿 Message sent successfully! We\'ll chirp back to you soon.');
       this.reset();
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
