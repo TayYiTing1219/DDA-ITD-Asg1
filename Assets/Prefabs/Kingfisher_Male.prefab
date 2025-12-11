@@ -17891,7 +17891,7 @@ GameObject:
   - component: {fileID: 8921068240451007679}
   - component: {fileID: 2562199763198383938}
   m_Layer: 0
-  m_Name: Kingfisher
+  m_Name: Kingfisher_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
