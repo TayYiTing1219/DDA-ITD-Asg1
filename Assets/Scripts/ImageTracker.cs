@@ -70,8 +70,8 @@ public class ImageTracker : MonoBehaviour
                 {
                     Debug.Log("Enabling associated content: " + spawnedPrefabs[trackedImage.referenceImage.name].name);
                     spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(trackedImage.transform);
-                    // spawnedPrefabs[trackedImage.referenceImage.name].transform.localPosition = Vector3.zero;
-                    // spawnedPrefabs[trackedImage.referenceImage.name].transform.localRotation = Quaternion.identity;
+                    spawnedPrefabs[trackedImage.referenceImage.name].transform.localPosition = Vector3.zero;
+                    spawnedPrefabs[trackedImage.referenceImage.name].transform.localRotation = Quaternion.identity;
                     spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
                 }
             }

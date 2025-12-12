@@ -7567,7 +7567,7 @@ GameObject:
   - component: {fileID: 4089503298943393940}
   - component: {fileID: 7931816026670917418}
   m_Layer: 0
-  m_Name: Female_Kingfisher
+  m_Name: femaleKingfisher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7582,8 +7582,8 @@ Transform:
   m_GameObject: {fileID: 3714068063490898478}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9999642, z: -0, w: -0.008468767}
-  m_LocalPosition: {x: 0.1914, y: 0.609, z: 0.6554}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1923, y: 0.55984, z: 0.66314}
+  m_LocalScale: {x: 1.553806, y: 1.553806, z: 1.553806}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6719412293091053356}
