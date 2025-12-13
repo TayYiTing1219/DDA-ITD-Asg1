@@ -9413,6 +9413,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: arCamera
+      value: 
+      objectReference: {fileID: 352190453}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: statusUI
       value: 
       objectReference: {fileID: 788159731}
@@ -9431,6 +9435,10 @@ PrefabInstance:
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: statusUIPanel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: tapDetectionRadius
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 335649478074786697, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: m_LocalScale.x

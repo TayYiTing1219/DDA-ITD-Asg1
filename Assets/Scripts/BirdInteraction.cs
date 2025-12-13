@@ -1,67 +1,63 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.ARFoundation; // Only add this line for AR Camera
 
 public class BirdInteraction : MonoBehaviour
 {
     [Header("Bird & UI Setup")]
-    [SerializeField] private GameObject birdPrefab; // Assign your SPAWNED bird prefab (from ImageTracker)
-    [SerializeField] private GameObject statusUI;   // Your Status UI (Canvas)
-    [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); // UI above bird
-    [SerializeField] private float tapDetectionRadius = 0.3f; // Tap area around bird (adjust)
+    [SerializeField] private GameObject birdPrefab; 
+    [SerializeField] private GameObject statusUI;   
+    [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); 
+    [SerializeField] private float tapDetectionRadius = 0.3f; 
 
+    [Header("Mobile Fix (Critical!)")]
+    [SerializeField] private Camera arCamera; // Assign AR Camera (XR Origin > Camera Offset > Main Camera)
     private InputAction tapAction;
 
     void Start()
     {
-        // Hide UI at start
         if (statusUI != null)
             statusUI.SetActive(false);
 
-        // Set up tap/click input (mobile + PC)
+        // Auto-find AR Camera if unassigned (fix Camera.main on mobile)
+        if (arCamera == null)
+            arCamera = FindFirstObjectByType<ARCameraManager>()?.GetComponent<Camera>() ?? Camera.main;
+
         SetupTapInput();
     }
 
-    // Set up cross-platform tap/click (no colliders needed)
+    // Fixed: Use raw touch press (mobile-friendly, replace "tap" binding)
     void SetupTapInput()
     {
         tapAction = new InputAction("Tap", InputActionType.Button);
-        // Mobile touch tap
-        tapAction.AddBinding("<TouchScreen>/primaryTouch/tap");
-        // PC mouse click (testing)
+        // Mobile: Raw touch press (more reliable than "tap" on mobile)
+        tapAction.AddBinding("<TouchScreen>/primaryTouch/press");
+        // PC: Keep mouse click
         tapAction.AddBinding("<Mouse>/leftButton");
         tapAction.performed += OnBirdTapDetected;
         tapAction.Enable();
     }
 
-    // Detect taps on the BIRD PREFAB (not the AR image)
     void OnBirdTapDetected(InputAction.CallbackContext context)
     {
-        // Exit if bird prefab is missing/inactive
-        if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null)
+        if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null || arCamera == null)
         {
-            Debug.LogWarning("Bird prefab/UI not assigned or bird is inactive!");
+            Debug.LogWarning("Bird prefab/UI/AR Camera missing or bird inactive!");
             return;
         }
 
-        // Step 1: Get user's tap/click position (screen space)
         Vector2 inputPos = GetInputPosition();
 
-        // Step 2: Convert bird's 3D world position to 2D screen position
-        Vector3 birdScreenPos = Camera.main.WorldToScreenPoint(birdPrefab.transform.position);
-        birdScreenPos.z = 0; // Ignore depth for 2D distance check
+        // Fixed: Use arCamera instead of Camera.main (mobile AR fix)
+        Vector3 birdScreenPos = arCamera.WorldToScreenPoint(birdPrefab.transform.position);
+        birdScreenPos.z = 0;
 
-        // Step 3: Check if tap is within the bird's detection area
-        float tapToBirdDistance = Vector2.Distance(
-            new Vector2(birdScreenPos.x, birdScreenPos.y), 
-            inputPos
-        );
-
-        // Scale radius with screen size (works on all devices)
-        float scaledRadius = tapDetectionRadius * Screen.width;
+        float tapToBirdDistance = Vector2.Distance(new Vector2(birdScreenPos.x, birdScreenPos.y), inputPos);
+        // Fixed: Reduce scaling (0.5x) to make tap area mobile-friendly
+        float scaledRadius = tapDetectionRadius * Screen.width * 0.5f; 
 
         if (tapToBirdDistance < scaledRadius)
         {
-            // Tap hit the bird → show/hide UI
             ToggleUI();
             Debug.Log($"Tapped the bird! Distance: {tapToBirdDistance} (radius: {scaledRadius})");
         }
@@ -71,37 +67,40 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Get tap/click position (cross-platform)
+    // Fixed: Add null check for Touchscreen/Mouse (prevent mobile crashes)
     Vector2 GetInputPosition()
     {
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
+        if (Touchscreen.current != null && Touchscreen.current.enabled)
         {
             return Touchscreen.current.primaryTouch.position.ReadValue();
         }
-        else
+        else if (Mouse.current != null)
         {
             return Mouse.current.position.ReadValue();
         }
+        return Vector2.zero;
     }
 
-    // Show/hide UI above the bird
     void ToggleUI()
     {
         statusUI.SetActive(!statusUI.activeSelf);
 
         if (statusUI.activeSelf)
         {
-            // Position UI relative to the bird prefab
             statusUI.transform.position = birdPrefab.transform.position + uiOffset;
-            // Rotate UI to face the camera (readable)
-            statusUI.transform.LookAt(Camera.main.transform);
-            statusUI.transform.Rotate(0, 180, 0); // Fix flipped text
+            // Fixed: Use arCamera instead of Camera.main (mobile AR fix)
+            statusUI.transform.LookAt(arCamera.transform);
+            statusUI.transform.Rotate(0, 180, 0);
         }
     }
 
-    // Clean up input to prevent memory leaks
+    // Fixed: Disable input before disposing (prevent mobile memory leaks)
     void OnDestroy()
     {
-        tapAction?.Dispose();
+        if (tapAction != null)
+        {
+            tapAction.Disable();
+            tapAction.Dispose();
+        }
     }
 }
