@@ -1,124 +1,107 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class BirdInteraction : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject statusUI; 
-    public Vector3 uiOffset = new Vector3(0.2f, 0, 0); 
+    [Header("Bird & UI Setup")]
+    [SerializeField] private GameObject birdPrefab; // Assign your SPAWNED bird prefab (from ImageTracker)
+    [SerializeField] private GameObject statusUI;   // Your Status UI (Canvas)
+    [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); // UI above bird
+    [SerializeField] private float tapDetectionRadius = 0.3f; // Tap area around bird (adjust)
 
-    private InputAction clickAction; 
+    private InputAction tapAction;
 
-    [Header("Debug Settings")]
-    public bool enableDebugLogs = true;
-
-    void Awake()
+    void Start()
     {
-        LogDebug("=== BirdInteraction Script Initialized ===");
-
+        // Hide UI at start
         if (statusUI != null)
-        {
             statusUI.SetActive(false);
-            LogDebug($"Status UI hidden at start (UI Object: {statusUI.name})");
-        }
-        else
-        {
-            LogDebug("⚠️ Status UI is NOT assigned! Assign it in the Inspector.", isError: true);
-        }
 
-        clickAction = new InputAction("Click", binding: "<Mouse>/leftButton");
-        clickAction.AddBinding("<TouchScreen>/primaryTouch/tap");
-        clickAction.performed += OnClickPerformed; 
-        clickAction.Enable();
-        LogDebug("Input System initialized (tap/click detection enabled)");
+        // Set up tap/click input (mobile + PC)
+        SetupTapInput();
     }
 
-    private void OnClickPerformed(InputAction.CallbackContext context)
+    // Set up cross-platform tap/click (no colliders needed)
+    void SetupTapInput()
     {
-        LogDebug("📱 Tap/Click detected!");
+        tapAction = new InputAction("Tap", InputActionType.Button);
+        // Mobile touch tap
+        tapAction.AddBinding("<TouchScreen>/primaryTouch/tap");
+        // PC mouse click (testing)
+        tapAction.AddBinding("<Mouse>/leftButton");
+        tapAction.performed += OnBirdTapDetected;
+        tapAction.Enable();
+    }
 
-        if (Camera.main == null)
+    // Detect taps on the BIRD PREFAB (not the AR image)
+    void OnBirdTapDetected(InputAction.CallbackContext context)
+    {
+        // Exit if bird prefab is missing/inactive
+        if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null)
         {
-            LogDebug("❌ Camera.main is NULL! No raycast possible.", isError: true);
+            Debug.LogWarning("Bird prefab/UI not assigned or bird is inactive!");
             return;
         }
 
-        Vector2 inputPos = Mouse.current.position.ReadValue();
+        // Step 1: Get user's tap/click position (screen space)
+        Vector2 inputPos = GetInputPosition();
+
+        // Step 2: Convert bird's 3D world position to 2D screen position
+        Vector3 birdScreenPos = Camera.main.WorldToScreenPoint(birdPrefab.transform.position);
+        birdScreenPos.z = 0; // Ignore depth for 2D distance check
+
+        // Step 3: Check if tap is within the bird's detection area
+        float tapToBirdDistance = Vector2.Distance(
+            new Vector2(birdScreenPos.x, birdScreenPos.y), 
+            inputPos
+        );
+
+        // Scale radius with screen size (works on all devices)
+        float scaledRadius = tapDetectionRadius * Screen.width;
+
+        if (tapToBirdDistance < scaledRadius)
+        {
+            // Tap hit the bird → show/hide UI
+            ToggleUI();
+            Debug.Log($"Tapped the bird! Distance: {tapToBirdDistance} (radius: {scaledRadius})");
+        }
+        else
+        {
+            Debug.Log($"Tap outside bird (distance: {tapToBirdDistance} > {scaledRadius})");
+        }
+    }
+
+    // Get tap/click position (cross-platform)
+    Vector2 GetInputPosition()
+    {
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
         {
-            inputPos = Touchscreen.current.primaryTouch.position.ReadValue();
-            LogDebug($"Touch position: X={inputPos.x}, Y={inputPos.y} (mobile)");
+            return Touchscreen.current.primaryTouch.position.ReadValue();
         }
         else
         {
-            LogDebug($"Mouse click position: X={inputPos.x}, Y={inputPos.y} (PC)");
-        }
-
-        Ray ray = Camera.main.ScreenPointToRay(inputPos);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            LogDebug($"✅ Raycast hit object: {hit.collider.gameObject.name} (Tag: {hit.collider.gameObject.tag})");
-            
-            // Check if tapped object is the bird OR ITS CHILDREN
-            if (hit.collider.gameObject == this.gameObject || hit.collider.gameObject.transform.IsChildOf(this.transform))
-            {
-                LogDebug($"🎉 Tapped the bird (or its part)! (Object: {hit.collider.gameObject.name})");
-                ToggleStatusUI();
-            }
-            else
-            {
-                LogDebug($"❌ Tapped wrong object (not the bird) — hit {hit.collider.gameObject.name}");
-            }
-        }
-        else
-        {
-            LogDebug("❌ Raycast hit NOTHING (no collider detected in scene)");
+            return Mouse.current.position.ReadValue();
         }
     }
 
-    void ToggleStatusUI()
+    // Show/hide UI above the bird
+    void ToggleUI()
     {
-        if (statusUI == null)
-        {
-            LogDebug("❌ Cannot toggle UI — statusUI is NULL!", isError: true);
-            return;
-        }
+        statusUI.SetActive(!statusUI.activeSelf);
 
-        bool isActive = statusUI.activeSelf;
-        statusUI.SetActive(!isActive);
-
-        if (!isActive)
+        if (statusUI.activeSelf)
         {
-            statusUI.transform.position = transform.position + uiOffset;
+            // Position UI relative to the bird prefab
+            statusUI.transform.position = birdPrefab.transform.position + uiOffset;
+            // Rotate UI to face the camera (readable)
             statusUI.transform.LookAt(Camera.main.transform);
-            statusUI.transform.Rotate(0, 180, 0);
-            
-            LogDebug($"📥 UI SHOWN — Position: {statusUI.transform.position} (Offset: {uiOffset})");
-        }
-        else
-        {
-            LogDebug($"📤 UI HIDDEN");
+            statusUI.transform.Rotate(0, 180, 0); // Fix flipped text
         }
     }
 
+    // Clean up input to prevent memory leaks
     void OnDestroy()
     {
-        clickAction.Dispose(); 
-        LogDebug("=== BirdInteraction Script Cleaned Up ===");
+        tapAction?.Dispose();
     }
-
-    private void LogDebug(string message, bool isError = false)
-    {
-        if (!enableDebugLogs) return;
-
-        if (isError)
-        {
-            Debug.LogError($"[BirdInteraction] {message}");
-        }
-        else
-        {
-            Debug.Log($"[BirdInteraction] {message}");
-        }
-    }
-
 }
