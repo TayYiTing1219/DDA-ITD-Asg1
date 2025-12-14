@@ -26,6 +26,10 @@ BirdHaven is a sanctuary for bird lovers, bringing together fascinating facts, s
    - Watch as hearts pop up around the bird when it accepts the food
 6. Close panels individually or tap the bird again to hide the entire UI
 
+Model Used:
+Male Kingfisher - https://skfb.ly/pBrHT
+Female Kingfisher - https://skfb.ly/oAOSw
+
 ### Website:
 #### Breif description
 Users can find out more information on our website
@@ -37,5 +41,5 @@ Users can find out more information on our website
 - Home page, some statistics, Our birds page, Join as a member page, About us page, Contact us page
 - Our website is linked to Firebase, a database that stores our data. When a user signs up, their account is stored in our database, if the account with the name exists, an error message will pop up. When a user logs in, they will be logged into their account.
 
-Template used: 
+Template Used: 
 https://www.tooplate.com/view/2145-eco-lume
