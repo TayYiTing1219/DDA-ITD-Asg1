@@ -27,8 +27,8 @@ BirdHaven is a sanctuary for bird lovers, bringing together fascinating facts, s
 6. Close panels individually or tap the bird again to hide the entire UI
 
 Model Used:
-Male Kingfisher - https://skfb.ly/pBrHT
-Female Kingfisher - https://skfb.ly/oAOSw
+- Male Kingfisher: https://skfb.ly/pBrHT
+- Female Kingfisher: https://skfb.ly/oAOSw
 
 ### Website:
 #### Breif description
