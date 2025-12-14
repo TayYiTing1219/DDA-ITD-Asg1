@@ -7566,7 +7566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089503298943393940}
   - component: {fileID: 7931816026670917418}
-  - component: {fileID: -7755794418225910459}
+  - component: {fileID: 1469215128159914577}
   m_Layer: 0
   m_Name: femaleKingfisher
   m_TagString: Untagged
@@ -7623,7 +7623,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-7755794418225910459
+--- !u!114 &1469215128159914577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7632,15 +7632,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3714068063490898478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1986529aca6f2149963c3158111067d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df17949f01585143b23ea096ad2a1dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   birdPrefab: {fileID: 0}
   statusUI: {fileID: 0}
   uiOffset: {x: 0, y: 0.5, z: 0}
-  tapDetectionRadius: 0.3
+  tapDetectionRadius: 0.4
   riverBankPrefab: {fileID: 0}
-  habitatOffset: {x: 2, y: 0, z: 0}
+  habitatOffset: {x: 1, y: 0, z: 0}
   arCamera: {fileID: 0}
   factsButton: {fileID: 0}
   habitatButton: {fileID: 0}
