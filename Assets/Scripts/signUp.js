@@ -1,30 +1,80 @@
 // Javascript code for sign-up functionality
 
-// Sign Up
-document.getElementById('signUpForm').addEventListener('submit', function (e) {
-   e.preventDefault();
+// Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-   // Simple form validation and submission simulation
-   const formData = new FormData(this);
-   const data = Object.fromEntries(formData);
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-   // Simulate form submission
-   const signUpBtn = this.querySelector('.signUp-btn');
-   const originalText = signUpBtn.textContent;
-   signUpBtn.textContent = '🌱 Creating Account...'
-   signUpBtn.disabled = true
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6kq78oZEICPDUYMfYnI3BaPdVSP4aeBY",
+    authDomain: "birdhaven-a93f3.firebaseapp.com",
+    databaseURL: "https://birdhaven-a93f3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "birdhaven-a93f3",
+    storageBucket: "birdhaven-a93f3.firebasestorage.app",
+    messagingSenderId: "1018492623542",
+    appId: "1:1018492623542:web:6522efc63239ace606e417",
+    measurementId: "G-J4HM5E61Q8"
+  };
 
-   setTimeout(() => {
-      alert('🌿 Account created successfully! Welcome to BirdHaven.');
-      this.reset();
-      signUpBtn.textContent = originalText;
-      signUpBtn.disabled = false;
-   }, 1500);
+  // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+   const auth = getAuth(app);
 
-   setTimeout(() => {
-        window.location.href = "index.html";
-    }, 1600);
-});
+   // Sign Up
+    // Create user data in the database
+    function createUserData() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            const user = userCredential.user;
+            const newUser = {
+            name: name,
+            email: email,
+            password: password,
+            birdsSeen: {
+                    kingfisher: 0,
+                    mallardDuck: 0,
+                    peacock: 0,
+                    }
+        };
+        set(ref(db, `users/${user.uid}`), newUser).then(() => {
+            console.log("Player data created successfully.");
+
+            // Simulate form submission
+            const signUpBtn = document.getElementById("signUp-btn");
+            const originalText = signUpBtn.textContent;
+
+            signUpBtn.textContent = '🌱 Creating Account...'
+            signUpBtn.disabled = true
+
+            setTimeout(() => {
+                alert('🌿 Account created successfully! Welcome to BirdHaven.');
+                this.reset();
+                signUpBtn.textContent = originalText;
+                signUpBtn.disabled = false;
+            }, 1500);
+
+            setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1600);
+        }).catch((error) => {
+            console.error("Error creating player data: ", error);
+        });
+    })
+   };
+
+    document.getElementById('signUp-btn').addEventListener('click', function (e) {
+    e.preventDefault();
+    createUserData();
+    });
 
 // Navbar scroll effect and active link management
 const navbar = document.getElementById('navbar');
