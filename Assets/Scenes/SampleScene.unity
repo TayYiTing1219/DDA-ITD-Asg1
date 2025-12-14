@@ -4811,7 +4811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &379668421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13591,6 +13591,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: beakUI
+      value: 
+      objectReference: {fileID: 982531328}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: wingsUI
+      value: 
+      objectReference: {fileID: 379668420}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: arCamera
       value: 
       objectReference: {fileID: 352190453}
@@ -13602,6 +13610,10 @@ PrefabInstance:
       propertyPath: dietPanel
       value: 
       objectReference: {fileID: 1670032369}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: beakButton
+      value: 
+      objectReference: {fileID: 1097936078}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: birdPrefab
       value: 
@@ -13615,6 +13627,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1971726757}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: feathersUI
+      value: 
+      objectReference: {fileID: 1395424763}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: uiOffset.x
       value: 0
       objectReference: {fileID: 0}
@@ -13626,6 +13642,10 @@ PrefabInstance:
       propertyPath: factsButton
       value: 
       objectReference: {fileID: 413934850}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: wingsButton
+      value: 
+      objectReference: {fileID: 545677962}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: habitatPanel
       value: 
@@ -13651,6 +13671,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1076773232}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: feathersButton
+      value: 
+      objectReference: {fileID: 801766976}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: beakCloseButton
+      value: 
+      objectReference: {fileID: 411859800}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: dietCloseButton
       value: 
       objectReference: {fileID: 1021936421}
@@ -13658,6 +13686,10 @@ PrefabInstance:
       propertyPath: factsCloseButton
       value: 
       objectReference: {fileID: 1264379428}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: wingsCloseButton
+      value: 
+      objectReference: {fileID: 1619502405}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: habitatCloseButton
       value: 
@@ -13670,6 +13702,10 @@ PrefabInstance:
       propertyPath: bodyPartCloseButton
       value: 
       objectReference: {fileID: 412081965}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: feathersCloseButton
+      value: 
+      objectReference: {fileID: 54087506}
     - target: {fileID: 335649478074786697, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.1049
@@ -15147,6 +15183,15 @@ MonoBehaviour:
   habitatCloseButton: {fileID: 0}
   dietCloseButton: {fileID: 0}
   bodyPartCloseButton: {fileID: 0}
+  beakButton: {fileID: 0}
+  feathersButton: {fileID: 0}
+  wingsButton: {fileID: 0}
+  beakUI: {fileID: 0}
+  feathersUI: {fileID: 0}
+  wingsUI: {fileID: 0}
+  beakCloseButton: {fileID: 0}
+  feathersCloseButton: {fileID: 0}
+  wingsCloseButton: {fileID: 0}
 --- !u!4 &1274863858
 Transform:
   m_ObjectHideFlags: 0
@@ -19145,14 +19190,14 @@ RectTransform:
   m_GameObject: {fileID: 1725716304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.34729165, y: 1.3269352, z: 0.84236836}
+  m_LocalScale: {x: 0.47808984, y: 1.5923225, z: 0.84236836}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 379668421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.18128, y: 737.1334}
+  m_AnchoredPosition: {x: 4.3794246, y: 763}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725716306
