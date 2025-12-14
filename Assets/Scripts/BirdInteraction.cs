@@ -96,7 +96,9 @@ public class BirdInteraction : MonoBehaviour
     void SetupTapInput()
     {
         tapAction = new InputAction("Tap", InputActionType.Button);
-        tapAction.AddBinding("<TouchScreen>/primaryTouch/tap");
+        // Mobile: Raw touch press (more reliable than "tap" on mobile)
+        tapAction.AddBinding("<TouchScreen>/primaryTouch/press");
+        // PC: Keep mouse click
         tapAction.AddBinding("<Mouse>/leftButton");
         tapAction.performed += OnBirdTapDetected;
         tapAction.Enable();
@@ -294,16 +296,18 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
+    // Fixed: Add null check for Touchscreen/Mouse (prevent mobile crashes)
     Vector2 GetInputPosition()
     {
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
+        if (Touchscreen.current != null && Touchscreen.current.enabled)
         {
             return Touchscreen.current.primaryTouch.position.ReadValue();
         }
-        else
+        else if (Mouse.current != null)
         {
             return Mouse.current.position.ReadValue();
         }
+        return Vector2.zero;
     }
 
     void ToggleUI()
