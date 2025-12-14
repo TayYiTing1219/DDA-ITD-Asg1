@@ -10,8 +10,7 @@ public class ARBirdProgressManager : MonoBehaviour
     // Core Configuration
     // --------------------------
     [Header("Objective Settings")]
-    [SerializeField] private int totalBirdSpecies = 3; // Total birds to scan (Kingfisher, Peacock, Duck)
-    [SerializeField] private bool requireFeeding = true; // Require feeding each bird to complete
+    [SerializeField] private int totalBirdSpecies = 2; // Total birds to scan (set to 2 for your project)
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI objectiveText;
@@ -26,36 +25,35 @@ public class ARBirdProgressManager : MonoBehaviour
     // Progress Tracking
     // --------------------------
     private int scannedBirdsCount = 0;
-    private int fedBirdsCount = 0;
-    private string[] scannedBirdNames = new string[3]; // Track which birds are scanned
-    private bool[] fedBirdStatus = new bool[3]; // Track if each scanned bird is fed
+    private string[] scannedBirdNames; // Dynamic array (matches totalBirdSpecies)
     private bool isExperienceCompleted = false;
 
     // --------------------------
-    // AR Reference (Optional)
+    // AR Reference
     // --------------------------
     [SerializeField] private ARTrackedImageManager trackedImageManager;
 
     void Start()
     {
+        // Critical: Initialize dynamic array (fixes index errors)
+        scannedBirdNames = new string[totalBirdSpecies];
+
         // Initialize UI
         InitializeProgressUI();
         
         // Set up return button
         returnToStartButton.onClick.AddListener(ReturnToStart);
         
-        // FIX: Add null check BEFORE accessing trackablesChanged
+        // Attach AR image scan listener (with null check)
         if (trackedImageManager != null)
         {
-            // For AR Foundation 6.0+: Use trackablesChanged instead of trackedImagesChanged
             trackedImageManager.trackablesChanged.AddListener(OnTrackablesChanged);
-            
-            // Optional: Enable the tracked image manager (ensure it's active)
             trackedImageManager.enabled = true;
+            Debug.Log("ARTrackedImageManager assigned and active!");
         }
         else
         {
-            Debug.LogWarning("ARTrackedImageManager is not assigned! Assign it in the Inspector.", this);
+            Debug.LogWarning("ARTrackedImageManager is NOT assigned! Assign it in the Inspector.", this);
         }
 
         // Hide feedback/completion screens by default
@@ -64,11 +62,10 @@ public class ARBirdProgressManager : MonoBehaviour
     }
 
     // --------------------------
-    // Clean Up Event Listener (Critical to Avoid Memory Leaks)
+    // Clean Up Event Listener (Prevent Memory Leaks)
     // --------------------------
     void OnDestroy()
     {
-        // FIX: Remove event listener when the object is destroyed
         if (trackedImageManager != null)
         {
             trackedImageManager.trackablesChanged.RemoveListener(OnTrackablesChanged);
@@ -80,16 +77,17 @@ public class ARBirdProgressManager : MonoBehaviour
     // --------------------------
     private void InitializeProgressUI()
     {
-        // Set main objective text
-        string objective = requireFeeding 
-            ? $"Scan & feed all {totalBirdSpecies} bird species!" 
-            : $"Scan all {totalBirdSpecies} bird species!";
-        objectiveText.text = objective;
+        // Set objective text (only scanning)
+        objectiveText.text = $"Scan all {totalBirdSpecies} bird species!";
 
-        // Reset progress bar/text
-        progressBar.maxValue = requireFeeding ? (totalBirdSpecies * 2) : totalBirdSpecies;
+        // Reset progress bar (max = total birds to scan)
+        progressBar.minValue = 0;
+        progressBar.maxValue = totalBirdSpecies;
         progressBar.value = 0;
         UpdateProgressText();
+
+        // Debug: Confirm UI init
+        Debug.Log($"Progress UI Initialized | Max Progress: {progressBar.maxValue}");
     }
 
     // --------------------------
@@ -97,133 +95,115 @@ public class ARBirdProgressManager : MonoBehaviour
     // --------------------------
     private void OnTrackablesChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs)
     {
-        // Loop through NEWLY added tracked images (only scan once per bird)
+        // Process NEWLY added tracked images (only scan once per bird)
         foreach (ARTrackedImage trackedImage in eventArgs.added)
         {
-            // FIX: Check if the image is valid (not null/empty)
+            // Skip invalid images
             if (trackedImage.referenceImage == null || string.IsNullOrEmpty(trackedImage.referenceImage.name))
             {
-                continue; // Skip invalid images
+                Debug.LogWarning("Skipped invalid tracked image (null name/reference)");
+                continue;
             }
 
             string birdName = trackedImage.referenceImage.name;
-            
-            // Only process if the bird hasn't been scanned yet
+            Debug.Log($"Detected AR Image: {birdName}");
+
+            // Only process if bird hasn't been scanned yet
             if (!IsBirdAlreadyScanned(birdName))
             {
-                // Mark bird as scanned (prevent duplicates)
-                scannedBirdNames[scannedBirdsCount] = birdName;
-                scannedBirdsCount = Mathf.Clamp(scannedBirdsCount + 1, 0, totalBirdSpecies);
-                
-                // Show feedback popup
-                ShowTaskFeedback($"Scanned {birdName}! Now feed it!");
-                
-                // Update progress
-                UpdateProgress();
-            }
-        }
+                // Find first empty slot in the array (prevents index errors)
+                int emptySlot = System.Array.IndexOf(scannedBirdNames, null);
+                if (emptySlot != -1)
+                {
+                    // Mark bird as scanned
+                    scannedBirdNames[emptySlot] = birdName;
+                    scannedBirdsCount = Mathf.Clamp(scannedBirdsCount + 1, 0, totalBirdSpecies);
+                    
+                    // Show feedback and update progress
+                    ShowTaskFeedback($"Scanned {birdName}!");
+                    UpdateProgress();
 
-        // Optional: Handle updated images (in case the bird moves)
-        foreach (ARTrackedImage trackedImage in eventArgs.updated)
-        {
-            if (trackedImage.trackingState == TrackingState.Tracking)
+                    // Debug: Confirm scan
+                    Debug.Log($"Scanned {birdName} | Total Scanned: {scannedBirdsCount}/{totalBirdSpecies}");
+                }
+                else
+                {
+                    Debug.LogWarning($"No empty slots left in scannedBirdNames array (max: {totalBirdSpecies})");
+                }
+            }
+            else
             {
-                // Bird is still visible (no action needed for progress)
+                Debug.Log($"{birdName} already scanned - skipping");
             }
         }
     }
 
     // --------------------------
-    // Public Methods (Call These from Bird Interaction Scripts)
-    // --------------------------
-    // Call this when a bird is fed (from your feeding mechanic)
-    public void MarkBirdAsFed(string birdName)
-    {
-        if (isExperienceCompleted) return;
-        
-        // Find index of scanned bird
-        int birdIndex = System.Array.IndexOf(scannedBirdNames, birdName);
-        if (birdIndex != -1 && !fedBirdStatus[birdIndex])
-        {
-            fedBirdStatus[birdIndex] = true;
-            fedBirdsCount = Mathf.Clamp(fedBirdsCount + 1, 0, totalBirdSpecies);
-            
-            // Show feedback popup
-            ShowTaskFeedback($"Fed {birdName}! ❤️");
-            
-            // Update progress
-            UpdateProgress();
-        }
-    }
-
-    // --------------------------
-    // Progress Logic
+    // Update Progress (Force Bar Refresh)
     // --------------------------
     private void UpdateProgress()
     {
-        // Calculate progress (scan = 1 point, feed = 1 point per bird if required)
-        int currentProgress = scannedBirdsCount;
-        if (requireFeeding) currentProgress += fedBirdsCount;
-        
-        // Update UI (clamp to max value to avoid overfilling)
-        progressBar.value = Mathf.Clamp(currentProgress, 0, progressBar.maxValue);
+        // Update progress bar (clamp to avoid overfill)
+        progressBar.value = Mathf.Clamp(scannedBirdsCount, 0, progressBar.maxValue);
         UpdateProgressText();
+
+        // Debug: Confirm progress update
+        Debug.Log($"Progress Updated | Bar Value: {progressBar.value} | Scanned Count: {scannedBirdsCount}");
 
         // Check if experience is complete
         CheckForCompletion();
     }
 
+    // --------------------------
+    // Update Progress Text (UI)
+    // --------------------------
     private void UpdateProgressText()
     {
-        string progressDetails = requireFeeding
-            ? $"Scanned: {scannedBirdsCount}/{totalBirdSpecies} | Fed: {fedBirdsCount}/{scannedBirdsCount}"
-            : $"Scanned: {scannedBirdsCount}/{totalBirdSpecies}";
-        
-        progressText.text = progressDetails;
+        progressText.text = $"Scanned: {scannedBirdsCount}/{totalBirdSpecies}";
     }
 
+    // --------------------------
+    // Check for Completion (All Birds Scanned)
+    // --------------------------
     private void CheckForCompletion()
     {
-        // Completion condition: All birds scanned + (all fed if required)
         bool allScanned = scannedBirdsCount >= totalBirdSpecies;
-        bool allFed = fedBirdsCount >= totalBirdSpecies;
-        bool completionMet = requireFeeding ? (allScanned && allFed) : allScanned;
 
-        if (completionMet && !isExperienceCompleted)
+        if (allScanned && !isExperienceCompleted)
         {
+            Debug.Log("All birds scanned! Showing completion screen.");
             CompleteExperience();
         }
     }
 
     // --------------------------
-    // Feedback & Completion
+    // Show Completion Screen (End State)
+    // --------------------------
+    private void CompleteExperience()
+    {
+        isExperienceCompleted = true;
+        completionScreen.SetActive(true);
+        
+        // Disable AR tracking to prevent further scans
+        if (trackedImageManager != null)
+        {
+            trackedImageManager.enabled = false;
+        }
+    }
+
+    // --------------------------
+    // Feedback Popup (Auto-Hide)
     // --------------------------
     private void ShowTaskFeedback(string message)
     {
         feedbackText.text = message;
         taskFeedbackPopup.SetActive(true);
-        
-        // Auto-hide popup after 2 seconds
         Invoke(nameof(HideFeedbackPopup), 2f);
     }
 
     private void HideFeedbackPopup()
     {
         taskFeedbackPopup.SetActive(false);
-    }
-
-    private void CompleteExperience()
-    {
-        isExperienceCompleted = true;
-        
-        // Show completion screen (pause AR interaction)
-        completionScreen.SetActive(true);
-        
-        // Optional: Disable AR tracking to prevent further interaction
-        if (trackedImageManager != null)
-        {
-            trackedImageManager.enabled = false;
-        }
     }
 
     // --------------------------
@@ -234,11 +214,9 @@ public class ARBirdProgressManager : MonoBehaviour
         // Hide completion screen
         completionScreen.SetActive(false);
         
-        // Reset progress
+        // Reset progress tracking
         scannedBirdsCount = 0;
-        fedBirdsCount = 0;
         scannedBirdNames = new string[totalBirdSpecies];
-        fedBirdStatus = new bool[totalBirdSpecies];
         isExperienceCompleted = false;
         
         // Re-enable AR tracking
@@ -249,10 +227,11 @@ public class ARBirdProgressManager : MonoBehaviour
         
         // Reset UI
         InitializeProgressUI();
+        Debug.Log("Progress reset - returned to start!");
     }
 
     // --------------------------
-    // Helper Methods
+    // Helper: Check if Bird Already Scanned
     // --------------------------
     private bool IsBirdAlreadyScanned(string birdName)
     {
@@ -260,12 +239,19 @@ public class ARBirdProgressManager : MonoBehaviour
         return System.Array.Exists(scannedBirdNames, name => name == birdName);
     }
 
-    // Optional: Validate UI references in Edit Mode
+    // --------------------------
+    // Validate References (Edit Mode)
+    // --------------------------
     void OnValidate()
     {
-        if (objectiveText == null) Debug.LogError("ObjectiveText is missing!", this);
-        if (progressBar == null) Debug.LogError("ProgressBar is missing!", this);
-        if (progressText == null) Debug.LogError("ProgressText is missing!", this);
-        if (trackedImageManager == null) Debug.LogWarning("ARTrackedImageManager is not assigned!", this);
+        if (objectiveText == null) Debug.LogError("ObjectiveText is missing! Assign it in the Inspector.", this);
+        if (progressBar == null) Debug.LogError("ProgressBar is missing! Assign it in the Inspector.", this);
+        if (progressText == null) Debug.LogError("ProgressText is missing! Assign it in the Inspector.", this);
+        if (taskFeedbackPopup == null) Debug.LogError("TaskFeedbackPopup is missing! Assign it in the Inspector.", this);
+        if (feedbackText == null) Debug.LogError("FeedbackText is missing! Assign it in the Inspector.", this);
+        if (completionScreen == null) Debug.LogError("CompletionScreen is missing! Assign it in the Inspector.", this);
+        if (returnToStartButton == null) Debug.LogError("ReturnToStartButton is missing! Assign it in the Inspector.", this);
+        if (trackedImageManager == null) Debug.LogWarning("ARTrackedImageManager is not assigned! Assign it in the Inspector.", this);
+        if (totalBirdSpecies < 1) Debug.LogWarning("TotalBirdSpecies must be at least 1!", this);
     }
 }
