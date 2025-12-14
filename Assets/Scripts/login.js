@@ -36,9 +36,8 @@
          .then((userCredential) => {
             if (userCredential.user) {
                const user = userCredential.user;
-               alert('User logged in successfully');
-
-               get(ref(db, 'users/' + userCredential.user.uid)).then((snapshot) => {
+               
+               get(ref(db, 'users/' + user.uid)).then((snapshot) => {
                      if (snapshot.exists()) {
                      const userData = snapshot.val();
                      const originalText = loginButton.textContent;
@@ -47,7 +46,7 @@
 
                      // Load the player's profile
                      setTimeout(() => {
-                        alert(`🌿 Logged in successfully! Welcome back to BirdHaven, ${userData.name}`);
+                        alert(`🌿 Logged in successfully! Welcome back to BirdHaven ${userData.name}!`);
                         this.reset();
                         loginButton.textContent = originalText;
                         loginButton.disabled = false;

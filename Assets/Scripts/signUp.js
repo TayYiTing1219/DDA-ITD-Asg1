@@ -56,7 +56,7 @@
             signUpBtn.disabled = true
 
             setTimeout(() => {
-                alert('🌿 Account created successfully! Welcome to BirdHaven.');
+                alert(`🌿 Account created successfully! Welcome to BirdHaven ${userData.name}!`);
                 this.reset();
                 signUpBtn.textContent = originalText;
                 signUpBtn.disabled = false;

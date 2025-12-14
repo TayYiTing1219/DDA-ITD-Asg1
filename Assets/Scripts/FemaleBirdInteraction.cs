@@ -12,8 +12,8 @@ public class FemaleBirdInteraction : MonoBehaviour
     [SerializeField] private float tapDetectionRadius = 0.3f; 
 
     [Header("Audio")]
-    [SerializeField] private AudioSource buttonClickAudioSource; // New: For button clicks
-    [SerializeField] private AudioSource chirpAudioSource; // Assign your chirping audio source
+    [SerializeField] AudioSource buttonClickAudioSource; // New: For button clicks
+    [SerializeField] AudioSource chirpAudioSource; // Assign your chirping audio source
 
     [Header("Habitat Setup")]
     [SerializeField] private GameObject riverBankPrefab; 
@@ -21,6 +21,9 @@ public class FemaleBirdInteraction : MonoBehaviour
 
     [Header("Mobile Fix (Critical!)")]
     [SerializeField] private Camera arCamera; 
+
+    [Header("Heart Effect (On Tap)")]
+    [SerializeField] GameObject heartPrefab;
 
     // --------------------------
     // Main Status UI Buttons/Panels
@@ -530,4 +533,38 @@ public class FemaleBirdInteraction : MonoBehaviour
         if (birdPrefab == null) Debug.LogError("Bird Prefab is required!", this);
         if (statusUI == null) Debug.LogError("Status UI is required!", this);
     }
+}
+// --------------------------
+// Heart Effect (Food Proximity Detection)
+// --------------------------
+void Update()
+{
+    DetectFoodProximity();
+}
+
+void DetectFoodProximity()
+{
+    if (birdPrefab == null || heartPrefab == null) return;
+
+    // Find all food objects (tag them as "Food" in the scene)
+    GameObject[] foodObjects = GameObject.FindGameObjectsWithTag("Food");
+    
+    if (foodObjects.Length == 0) return;
+
+    foreach (GameObject food in foodObjects)
+    {
+        float distanceToFood = Vector3.Distance(birdPrefab.transform.position, food.transform.position);
+        
+        // Adjust distance threshold as needed
+        if (distanceToFood < 2f)
+        {
+            ShowHeartEffect();
+            return;
+        }
+    }
+}
+
+void ShowHeartEffect()
+{
+    heartPrefab.SetActive(true);
 }
