@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.UI;
+using UnityEngine.UI; // Add UI namespace (for buttons/panels)
 
 public class BirdInteraction : MonoBehaviour
 {
@@ -14,27 +14,44 @@ public class BirdInteraction : MonoBehaviour
     [Header("Mobile Fix (Critical!)")]
     [SerializeField] private Camera arCamera; 
 
-    [Header("Detail Panels (Assign in Inspector)")]
-    [SerializeField] private GameObject factsPanel; 
-    [SerializeField] private GameObject habitatPanel; 
-    [SerializeField] private GameObject dietPanel; 
-    [SerializeField] private GameObject bodyPartPanel; 
+    [Header("Detail Panel Buttons (Status UI Buttons)")]
+    [SerializeField] private Button factsButton; // Assign "Facts" button in Status UI
+    [SerializeField] private Button habitatButton; // Assign "Habitat" button in Status UI
+    [SerializeField] private Button dietButton; // Assign "Diet" button in Status UI
+    [SerializeField] private Button bodyPartButton; // Assign "Body Part" button in Status UI
+
+    [Header("Detail Panels")]
+    [SerializeField] private GameObject factsPanel; // Assign Facts detail panel
+    [SerializeField] private GameObject habitatPanel; // Assign Habitat detail panel
+    [SerializeField] private GameObject dietPanel; // Assign Diet detail panel
+    [SerializeField] private GameObject bodyPartPanel; // Assign Body Part detail panel
+    
+    [Header("Unique Close Buttons (Per Panel)")]
+    [SerializeField] private Button factsCloseButton;   // Assign Facts panel's close button
+    [SerializeField] private Button habitatCloseButton; // Assign Habitat panel's close button
+    [SerializeField] private Button dietCloseButton;    // Assign Diet panel's close button
+    [SerializeField] private Button bodyPartCloseButton;// Assign Body Part panel's close button
 
     private InputAction tapAction;
 
     void Start()
     {
+        // Hide UI at start
         if (statusUI != null)
             statusUI.SetActive(false);
 
+        // Auto-find AR Camera if unassigned
         if (arCamera == null)
             arCamera = FindFirstObjectByType<ARCameraManager>()?.GetComponent<Camera>() ?? Camera.main;
 
+        // Set up core systems
         SetupTapInput();
-        HideAllPanels(); // Hide panels at start
+        HideAllPanels(); // Hide panels on start
+        SetupDetailPanelButtons(); // Link show buttons
+        SetupCloseButtons(); // Link unique close buttons
     }
 
-    // Original: Tap input setup
+    // Original: Set up tap input (unchanged)
     void SetupTapInput()
     {
         tapAction = new InputAction("Tap", InputActionType.Button);
@@ -44,7 +61,63 @@ public class BirdInteraction : MonoBehaviour
         tapAction.Enable();
     }
 
-    // Original: Bird tap detection
+    // Fixed: Link Status UI buttons to SHOW panel functions
+    void SetupDetailPanelButtons()
+    {
+        // Link each Status UI button to show its panel (hide others first)
+        factsButton?.onClick.AddListener(() => ShowSpecificPanel(factsPanel));
+        habitatButton?.onClick.AddListener(() => ShowSpecificPanel(habitatPanel));
+        dietButton?.onClick.AddListener(() => ShowSpecificPanel(dietPanel));
+        bodyPartButton?.onClick.AddListener(() => ShowSpecificPanel(bodyPartPanel));
+    }
+
+    // Fixed: Link unique close buttons to CLOSE their panel
+    void SetupCloseButtons()
+    {
+        // Each close button only closes its own panel (no global close unless needed)
+        factsCloseButton?.onClick.AddListener(() => CloseSpecificPanel(factsPanel));
+        habitatCloseButton?.onClick.AddListener(() => CloseSpecificPanel(habitatPanel));
+        dietCloseButton?.onClick.AddListener(() => CloseSpecificPanel(dietPanel));
+        bodyPartCloseButton?.onClick.AddListener(() => CloseSpecificPanel(bodyPartPanel));
+    }
+
+    // Fixed: Show ONE panel (hide others first)
+    void ShowSpecificPanel(GameObject targetPanel)
+    {
+        if (targetPanel == null)
+        {
+            Debug.LogWarning("Target panel is not assigned!");
+            return;
+        }
+
+        HideAllPanels(); // Hide other panels first
+        targetPanel.SetActive(true);
+        Debug.Log($"Showing panel: {targetPanel.name}");
+    }
+
+    // New: Close ONLY the target panel (unique close logic)
+    void CloseSpecificPanel(GameObject targetPanel)
+    {
+        if (targetPanel == null)
+        {
+            Debug.LogWarning("Target panel is not assigned!");
+            return;
+        }
+
+        targetPanel.SetActive(false);
+        Debug.Log($"Closed panel: {targetPanel.name}");
+    }
+
+    // Fixed: Hide ALL panels (helper function)
+    void HideAllPanels()
+    {
+        if (factsPanel != null) factsPanel.SetActive(false);
+        if (habitatPanel != null) habitatPanel.SetActive(false);
+        if (dietPanel != null) dietPanel.SetActive(false);
+        if (bodyPartPanel != null) bodyPartPanel.SetActive(false);
+    }
+
+    // Original: Detect bird taps (unchanged)
     void OnBirdTapDetected(InputAction.CallbackContext context)
     {
         if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null || arCamera == null)
@@ -54,6 +127,7 @@ public class BirdInteraction : MonoBehaviour
         }
 
         Vector2 inputPos = GetInputPosition();
+
         Vector3 birdScreenPos = arCamera.WorldToScreenPoint(birdPrefab.transform.position);
         birdScreenPos.z = 0;
 
@@ -71,7 +145,7 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Original: Get input position
+    // Original: Get input position (unchanged)
     Vector2 GetInputPosition()
     {
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
@@ -84,11 +158,16 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Original: Toggle Status UI
+    // Original: Toggle Status UI (updated to hide panels)
     void ToggleUI()
     {
         statusUI.SetActive(!statusUI.activeSelf);
-        HideAllPanels();
+        
+        // Hide all panels when Status UI is closed
+        if (!statusUI.activeSelf)
+        {
+            HideAllPanels();
+        }
 
         if (statusUI.activeSelf)
         {
@@ -98,36 +177,7 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // === NEW: Assignable Panel Functions (Use in On Click Inspector) ===
-    // Show panel (assign to panel buttons in Inspector)
-    public void ShowFactsPanel() => ShowSinglePanel(factsPanel);
-    public void ShowHabitatPanel() => ShowSinglePanel(habitatPanel);
-    public void ShowDietPanel() => ShowSinglePanel(dietPanel);
-    public void ShowBodyPartPanel() => ShowSinglePanel(bodyPartPanel);
-
-    // Close panel (assign to each panel's Close button in Inspector)
-    public void CloseFactsPanel() => factsPanel?.SetActive(false);
-    public void CloseHabitatPanel() => habitatPanel?.SetActive(false);
-    public void CloseDietPanel() => dietPanel?.SetActive(false);
-    public void CloseBodyPartPanel() => bodyPartPanel?.SetActive(false);
-
-    // Helper: Show one panel, hide others
-    private void ShowSinglePanel(GameObject targetPanel)
-    {
-        HideAllPanels();
-        targetPanel?.SetActive(true);
-    }
-
-    // Helper: Hide all panels
-    private void HideAllPanels()
-    {
-        factsPanel?.SetActive(false);
-        habitatPanel?.SetActive(false);
-        dietPanel?.SetActive(false);
-        bodyPartPanel?.SetActive(false);
-    }
-
-    // Original: Clean up input
+    // Original: Clean up input (unchanged)
     void OnDestroy()
     {
         tapAction?.Dispose();
