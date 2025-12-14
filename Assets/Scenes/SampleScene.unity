@@ -2648,7 +2648,6 @@ MonoBehaviour:
   riverBankPrefab: {fileID: 0}
   habitatOffset: {x: 2, y: 0, z: 0}
   arCamera: {fileID: 0}
-  heartPrefab: {fileID: 0}
   factsButton: {fileID: 0}
   habitatButton: {fileID: 0}
   dietButton: {fileID: 0}
@@ -6524,7 +6523,6 @@ MonoBehaviour:
   riverBankPrefab: {fileID: 1951705532}
   habitatOffset: {x: 1, y: 0, z: 0}
   arCamera: {fileID: 352190453}
-  heartPrefab: {fileID: 0}
   factsButton: {fileID: 1729958257}
   habitatButton: {fileID: 905894753}
   dietButton: {fileID: 1538880194}
@@ -10473,12 +10471,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2099970471}
+      objectReference: {fileID: 2099970474}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2099970474}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartCoaching
+      value: CreatePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: hideUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DatabaseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DatabaseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6050000886200054847, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
       propertyPath: m_Name
@@ -13069,6 +13099,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861236272}
   m_CullTransparentMesh: 1
+--- !u!1 &863535815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2941317804501384629, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+  m_PrefabInstance: {fileID: 774215783}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &863535816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+  m_PrefabInstance: {fileID: 774215783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863535815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &872855034
 GameObject:
   m_ObjectHideFlags: 0
@@ -21708,6 +21754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1438436314}
   - component: {fileID: 1438436313}
+  - component: {fileID: 1438436315}
   m_Layer: 0
   m_Name: MaleBirdInteraction
   m_TagString: Untagged
@@ -21772,6 +21819,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1438436315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438436312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e76a0d8157d4349834544c5d4d4988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  password: {fileID: 0}
+  email: {fileID: 0}
+  username: {fileID: 0}
+  loginButton: {fileID: 0}
+  signUp: {fileID: 0}
+  signUpUI: {fileID: 0}
 --- !u!1 &1441072524
 GameObject:
   m_ObjectHideFlags: 0
@@ -22661,6 +22726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516566094}
+  - component: {fileID: 1516566095}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -22683,6 +22749,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1516566095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516566093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e76a0d8157d4349834544c5d4d4988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  password: {fileID: 715598550}
+  email: {fileID: 771021871}
+  username: {fileID: 1254493935}
+  loginButton: {fileID: 863535816}
+  signUp: {fileID: 863535815}
+  signUpUI: {fileID: 0}
 --- !u!1 &1520419809
 GameObject:
   m_ObjectHideFlags: 0
@@ -30482,6 +30566,7 @@ GameObject:
   - component: {fileID: 2099970472}
   - component: {fileID: 2099970471}
   - component: {fileID: 2099970473}
+  - component: {fileID: 2099970474}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -30677,6 +30762,24 @@ MonoBehaviour:
   completionScreen: {fileID: 517037429}
   returnToStartButton: {fileID: 25263088}
   trackedImageManager: {fileID: 1505706919}
+--- !u!114 &2099970474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099970465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e76a0d8157d4349834544c5d4d4988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  password: {fileID: 715598550}
+  email: {fileID: 771021871}
+  username: {fileID: 1254493935}
+  loginButton: {fileID: 863535816}
+  signUp: {fileID: 863535815}
+  signUpUI: {fileID: 1834284674}
 --- !u!1 &2116170431
 GameObject:
   m_ObjectHideFlags: 0

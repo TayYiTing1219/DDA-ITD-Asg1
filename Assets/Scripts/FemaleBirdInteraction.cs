@@ -22,9 +22,6 @@ public class FemaleBirdInteraction : MonoBehaviour
     [Header("Mobile Fix (Critical!)")]
     [SerializeField] private Camera arCamera; 
 
-    [Header("Heart Effect (On Tap)")]
-    [SerializeField] GameObject heartPrefab;
-
     // --------------------------
     // Main Status UI Buttons/Panels
     // --------------------------
