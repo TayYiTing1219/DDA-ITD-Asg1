@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1018492623542",
+    "firebase_url": "https://birdhaven-a93f3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "birdhaven-a93f3",
+    "storage_bucket": "birdhaven-a93f3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018492623542:android:fd79ab2d440d150206e417",
+        "android_client_info": {
+          "package_name": "com.np.birdhaven"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYsXvFy6D8zVMZS-4Krsmcy-_l05pE5YE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
