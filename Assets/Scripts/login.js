@@ -2,7 +2,7 @@
 
 // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { firebaseConfig } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-config.js";
+   //  import { firebaseConfig } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-config.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
