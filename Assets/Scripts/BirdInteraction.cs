@@ -1,74 +1,67 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.ARFoundation; // For AR Camera
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.UI;
 
 public class BirdInteraction : MonoBehaviour
 {
     [Header("Bird & UI Setup")]
-    [SerializeField] private GameObject birdPrefab; // Assign your SPAWNED bird prefab (from ImageTracker)
-    [SerializeField] private GameObject statusUI;   // Your Status UI (Canvas)
-    [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); // UI above bird
-    [SerializeField] private float tapDetectionRadius = 0.3f; // Tap area around bird (adjust)
+    [SerializeField] private GameObject birdPrefab; 
+    [SerializeField] private GameObject statusUI;   
+    [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); 
+    [SerializeField] private float tapDetectionRadius = 0.3f; 
 
     [Header("Mobile Fix (Critical!)")]
-    [SerializeField] private Camera arCamera; // Assign AR Camera (XR Origin > Camera Offset > Main Camera)
+    [SerializeField] private Camera arCamera; 
+
+    [Header("Detail Panels (Assign in Inspector)")]
+    [SerializeField] private GameObject factsPanel; 
+    [SerializeField] private GameObject habitatPanel; 
+    [SerializeField] private GameObject dietPanel; 
+    [SerializeField] private GameObject bodyPartPanel; 
+
     private InputAction tapAction;
 
     void Start()
     {
-        // Hide UI at start
         if (statusUI != null)
             statusUI.SetActive(false);
 
-        // Auto-find AR Camera if unassigned (fix Camera.main on mobile)
         if (arCamera == null)
             arCamera = FindFirstObjectByType<ARCameraManager>()?.GetComponent<Camera>() ?? Camera.main;
 
-        // Set up tap/click input (mobile + PC)
         SetupTapInput();
+        HideAllPanels(); // Hide panels at start
     }
 
-    // Set up cross-platform tap/click (no colliders needed)
+    // Original: Tap input setup
     void SetupTapInput()
     {
         tapAction = new InputAction("Tap", InputActionType.Button);
-        // Mobile touch tap
         tapAction.AddBinding("<TouchScreen>/primaryTouch/tap");
-        // PC mouse click (testing)
         tapAction.AddBinding("<Mouse>/leftButton");
         tapAction.performed += OnBirdTapDetected;
         tapAction.Enable();
     }
 
-    // Detect taps on the BIRD PREFAB (not the AR image)
+    // Original: Bird tap detection
     void OnBirdTapDetected(InputAction.CallbackContext context)
     {
-        // Exit if bird prefab is missing/inactive
         if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null || arCamera == null)
         {
             Debug.LogWarning("Bird prefab/UI not assigned or bird is inactive!");
             return;
         }
 
-        // Step 1: Get user's tap/click position (screen space)
         Vector2 inputPos = GetInputPosition();
-
-        // Step 2: Convert bird's 3D world position to 2D screen position
         Vector3 birdScreenPos = arCamera.WorldToScreenPoint(birdPrefab.transform.position);
-        birdScreenPos.z = 0; // Ignore depth for 2D distance check
+        birdScreenPos.z = 0;
 
-        // Step 3: Check if tap is within the bird's detection area
-        float tapToBirdDistance = Vector2.Distance(
-            new Vector2(birdScreenPos.x, birdScreenPos.y), 
-            inputPos
-        );
-
-        // Scale radius with screen size (works on all devices)
+        float tapToBirdDistance = Vector2.Distance(new Vector2(birdScreenPos.x, birdScreenPos.y), inputPos);
         float scaledRadius = tapDetectionRadius * Screen.width;
 
         if (tapToBirdDistance < scaledRadius)
         {
-            // Tap hit the bird → show/hide UI
             ToggleUI();
             Debug.Log($"Tapped the bird! Distance: {tapToBirdDistance} (radius: {scaledRadius})");
         }
@@ -78,7 +71,7 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Get tap/click position (cross-platform)
+    // Original: Get input position
     Vector2 GetInputPosition()
     {
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
@@ -91,22 +84,50 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Show/hide UI above the bird
+    // Original: Toggle Status UI
     void ToggleUI()
     {
         statusUI.SetActive(!statusUI.activeSelf);
+        HideAllPanels();
 
         if (statusUI.activeSelf)
         {
-            // Position UI relative to the bird prefab
             statusUI.transform.position = birdPrefab.transform.position + uiOffset;
-            // Rotate UI to face the camera (readable)
             statusUI.transform.LookAt(arCamera.transform);
-            statusUI.transform.Rotate(0, 180, 0); // Fix flipped text
+            statusUI.transform.Rotate(0, 180, 0);
         }
     }
 
-    // Clean up input to prevent memory leaks
+    // === NEW: Assignable Panel Functions (Use in On Click Inspector) ===
+    // Show panel (assign to panel buttons in Inspector)
+    public void ShowFactsPanel() => ShowSinglePanel(factsPanel);
+    public void ShowHabitatPanel() => ShowSinglePanel(habitatPanel);
+    public void ShowDietPanel() => ShowSinglePanel(dietPanel);
+    public void ShowBodyPartPanel() => ShowSinglePanel(bodyPartPanel);
+
+    // Close panel (assign to each panel's Close button in Inspector)
+    public void CloseFactsPanel() => factsPanel?.SetActive(false);
+    public void CloseHabitatPanel() => habitatPanel?.SetActive(false);
+    public void CloseDietPanel() => dietPanel?.SetActive(false);
+    public void CloseBodyPartPanel() => bodyPartPanel?.SetActive(false);
+
+    // Helper: Show one panel, hide others
+    private void ShowSinglePanel(GameObject targetPanel)
+    {
+        HideAllPanels();
+        targetPanel?.SetActive(true);
+    }
+
+    // Helper: Hide all panels
+    private void HideAllPanels()
+    {
+        factsPanel?.SetActive(false);
+        habitatPanel?.SetActive(false);
+        dietPanel?.SetActive(false);
+        bodyPartPanel?.SetActive(false);
+    }
+
+    // Original: Clean up input
     void OnDestroy()
     {
         tapAction?.Dispose();
