@@ -7566,6 +7566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089503298943393940}
   - component: {fileID: 7931816026670917418}
+  - component: {fileID: -7755794418225910459}
   m_Layer: 0
   m_Name: femaleKingfisher
   m_TagString: Untagged
@@ -7622,6 +7623,46 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7755794418225910459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714068063490898478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1986529aca6f2149963c3158111067d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdPrefab: {fileID: 0}
+  statusUI: {fileID: 0}
+  uiOffset: {x: 0, y: 0.5, z: 0}
+  tapDetectionRadius: 0.3
+  riverBankPrefab: {fileID: 0}
+  habitatOffset: {x: 2, y: 0, z: 0}
+  arCamera: {fileID: 0}
+  factsButton: {fileID: 0}
+  habitatButton: {fileID: 0}
+  dietButton: {fileID: 0}
+  bodyPartButton: {fileID: 0}
+  factsPanel: {fileID: 0}
+  habitatPanel: {fileID: 0}
+  dietPanel: {fileID: 0}
+  bodyPartPanel: {fileID: 0}
+  factsCloseButton: {fileID: 0}
+  habitatCloseButton: {fileID: 0}
+  dietCloseButton: {fileID: 0}
+  bodyPartCloseButton: {fileID: 0}
+  beakButton: {fileID: 0}
+  feathersButton: {fileID: 0}
+  wingsButton: {fileID: 0}
+  beakUI: {fileID: 0}
+  feathersUI: {fileID: 0}
+  wingsUI: {fileID: 0}
+  beakCloseButton: {fileID: 0}
+  feathersCloseButton: {fileID: 0}
+  wingsCloseButton: {fileID: 0}
 --- !u!1 &3739356940045388965
 GameObject:
   m_ObjectHideFlags: 0
