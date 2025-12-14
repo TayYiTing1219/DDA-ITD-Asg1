@@ -534,37 +534,3 @@ public class FemaleBirdInteraction : MonoBehaviour
         if (statusUI == null) Debug.LogError("Status UI is required!", this);
     }
 }
-// --------------------------
-// Heart Effect (Food Proximity Detection)
-// --------------------------
-void Update()
-{
-    DetectFoodProximity();
-}
-
-void DetectFoodProximity()
-{
-    if (birdPrefab == null || heartPrefab == null) return;
-
-    // Find all food objects (tag them as "Food" in the scene)
-    GameObject[] foodObjects = GameObject.FindGameObjectsWithTag("Food");
-    
-    if (foodObjects.Length == 0) return;
-
-    foreach (GameObject food in foodObjects)
-    {
-        float distanceToFood = Vector3.Distance(birdPrefab.transform.position, food.transform.position);
-        
-        // Adjust distance threshold as needed
-        if (distanceToFood < 2f)
-        {
-            ShowHeartEffect();
-            return;
-        }
-    }
-}
-
-void ShowHeartEffect()
-{
-    heartPrefab.SetActive(true);
-}
