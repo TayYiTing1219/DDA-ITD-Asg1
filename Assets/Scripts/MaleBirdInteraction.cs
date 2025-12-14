@@ -11,6 +11,10 @@ public class MaleBirdInteraction : MonoBehaviour
     [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); 
     [SerializeField] private float tapDetectionRadius = 0.3f; 
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource buttonClickAudioSource; // New: For button clicks
+    [SerializeField] private AudioSource chirpAudioSource; // Assign your chirping audio source
+
     [Header("Habitat Setup")]
     [SerializeField] private GameObject riverBankPrefab; 
     [SerializeField] private Vector3 habitatOffset = new Vector3(2, 0, 0); 
@@ -94,6 +98,17 @@ public class MaleBirdInteraction : MonoBehaviour
             this.enabled = false; // Disable script to prevent further errors
         }
     }
+
+    // Public method to play button click sound (call from On Click())
+    public void PlayButtonClickSound()
+    {
+        if (buttonClickAudioSource != null && !buttonClickAudioSource.isPlaying)
+        {
+            buttonClickAudioSource.Play(); // Plays the sound assigned to the AudioSource
+            Debug.Log("Button click sound played!");
+        }
+    }
+
 
     // --------------------------
     // Critical Validation (Fix Null References)
@@ -444,7 +459,7 @@ public class MaleBirdInteraction : MonoBehaviour
     }
 
     // --------------------------
-    // UI Toggle (Full Protection)
+    // UI Toggle (Full Protection + Sound)
     // --------------------------
     void ToggleUI()
     {
@@ -474,6 +489,13 @@ public class MaleBirdInteraction : MonoBehaviour
         }
         else
         {
+            // Play chirping sound (only when UI opens)
+            if (chirpAudioSource != null && !chirpAudioSource.isPlaying)
+            {
+                chirpAudioSource.Play();
+                Debug.Log("Chirping sound played!");
+            }
+
             // Position UI correctly (with rotation fix)
             statusUI.transform.position = birdPrefab.transform.position + uiOffset;
             statusUI.transform.LookAt(arCamera.transform);
