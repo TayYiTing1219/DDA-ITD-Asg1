@@ -11,6 +11,10 @@ public class BirdInteraction : MonoBehaviour
     [SerializeField] private Vector3 uiOffset = new Vector3(0, 0.5f, 0); 
     [SerializeField] private float tapDetectionRadius = 0.3f; 
 
+    [Header("Habitat Setup")]
+    [SerializeField] private GameObject riverBankPrefab; // Assign your animated river bank prefab
+    [SerializeField] private Vector3 habitatOffset = new Vector3(2, 0, 0); // Position relative to bird
+
     [Header("Mobile Fix (Critical!)")]
     [SerializeField] private Camera arCamera; 
 
@@ -54,6 +58,7 @@ public class BirdInteraction : MonoBehaviour
     [SerializeField] private Button wingsCloseButton;    // Assign Wings UI close button
 
     private InputAction tapAction;
+    private GameObject spawnedRiverBank; // Track the instantiated river bank
 
     void Start()
     {
@@ -64,6 +69,14 @@ public class BirdInteraction : MonoBehaviour
         // Auto-find AR Camera
         if (arCamera == null)
             arCamera = FindFirstObjectByType<ARCameraManager>()?.GetComponent<Camera>() ?? Camera.main;
+
+        // Initialize river bank (hidden initially)
+        if (riverBankPrefab != null)
+        {
+            spawnedRiverBank = Instantiate(riverBankPrefab);
+            spawnedRiverBank.SetActive(false);
+            spawnedRiverBank.transform.SetParent(birdPrefab.transform); // Parent to bird (critical!)
+        }
 
         // Initialize core systems
         SetupTapInput();
@@ -95,7 +108,7 @@ public class BirdInteraction : MonoBehaviour
     void SetupMainPanelButtons()
     {
         factsButton?.onClick.AddListener(() => ShowSpecificMainPanel(factsPanel));
-        habitatButton?.onClick.AddListener(() => ShowSpecificMainPanel(habitatPanel));
+        habitatButton?.onClick.AddListener(ToggleHabitat); // Changed to trigger habitat
         dietButton?.onClick.AddListener(() => ShowSpecificMainPanel(dietPanel));
         bodyPartButton?.onClick.AddListener(() => ShowSpecificMainPanel(bodyPartPanel));
     }
@@ -103,13 +116,68 @@ public class BirdInteraction : MonoBehaviour
     void SetupMainPanelCloseButtons()
     {
         factsCloseButton?.onClick.AddListener(() => CloseSpecificMainPanel(factsPanel));
-        habitatCloseButton?.onClick.AddListener(() => CloseSpecificMainPanel(habitatPanel));
+        habitatCloseButton?.onClick.AddListener(() => 
+        {
+            CloseSpecificMainPanel(habitatPanel);
+            HideRiverBank(); // Hide river bank when closing habitat panel
+        });
         dietCloseButton?.onClick.AddListener(() => CloseSpecificMainPanel(dietPanel));
         bodyPartCloseButton?.onClick.AddListener(() => 
         {
             CloseSpecificMainPanel(bodyPartPanel);
             HideAllBodyPartSubPanels(); // Hide sub-panels when closing parent BodyPart panel
         });
+    }
+
+    // New method to handle habitat toggle
+    void ToggleHabitat()
+    {
+        if (spawnedRiverBank == null)
+        {
+            Debug.LogWarning("River bank prefab not assigned!");
+            return;
+        }
+
+        if (spawnedRiverBank.activeSelf)
+        {
+            HideRiverBank();
+            CloseSpecificMainPanel(habitatPanel);
+        }
+        else
+        {
+            ShowRiverBank();
+            ShowSpecificMainPanel(habitatPanel);
+        }
+    }
+
+    void ShowRiverBank()
+    {
+        if (birdPrefab == null || spawnedRiverBank == null) 
+        {
+            Debug.LogError("Bird/River Bank prefab missing!");
+            return;
+        }
+
+        // Log positions for debugging
+        Debug.Log($"Bird Position: {birdPrefab.transform.position}");
+        Debug.Log($"River Bank Position: {birdPrefab.transform.position + habitatOffset}");
+        
+        // Force-set position/scale/rotation
+        spawnedRiverBank.transform.position = birdPrefab.transform.position + habitatOffset;
+        spawnedRiverBank.transform.rotation = Quaternion.identity; // Reset rotation (no weird angles)
+        spawnedRiverBank.transform.localScale = Vector3.one; // Force 1:1 scale
+        spawnedRiverBank.SetActive(true);
+        
+        Debug.Log("River bank ACTIVATED – check position/scale in Scene view!");
+    }
+
+    void HideRiverBank()
+    {
+        if (spawnedRiverBank != null && spawnedRiverBank.activeSelf)
+        {
+            spawnedRiverBank.SetActive(false);
+            Debug.Log("River bank hidden");
+        }
     }
 
     void ShowSpecificMainPanel(GameObject targetPanel)
@@ -242,11 +310,12 @@ public class BirdInteraction : MonoBehaviour
     {
         statusUI.SetActive(!statusUI.activeSelf);
         
-        // Hide ALL panels (main + sub) when Status UI is closed
+        // Hide ALL panels (main + sub) and river bank when Status UI is closed
         if (!statusUI.activeSelf)
         {
             HideAllMainPanels();
             HideAllBodyPartSubPanels();
+            HideRiverBank();
         }
 
         if (statusUI.activeSelf)
@@ -260,5 +329,7 @@ public class BirdInteraction : MonoBehaviour
     void OnDestroy()
     {
         tapAction?.Dispose();
+        if (spawnedRiverBank != null)
+            Destroy(spawnedRiverBank);
     }
 }

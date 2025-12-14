@@ -4811,7 +4811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &379668421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6093,6 +6093,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.54897916
       objectReference: {fileID: 0}
@@ -6132,13 +6144,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2063600364471944932, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
       propertyPath: m_Name
       value: riverBank(animated)
       objectReference: {fileID: 0}
     - target: {fileID: 2063600364471944932, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11481,7 +11497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &982531329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13582,6 +13598,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097936076}
   m_CullTransparentMesh: 1
+--- !u!1001 &1104096930
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.45199034
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0841717
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722821700808596574, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2063600364471944932, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+      propertyPath: m_Name
+      value: riverBank(animated) (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
 --- !u!1001 &1105634592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13682,6 +13755,14 @@ PrefabInstance:
       propertyPath: dietCloseButton
       value: 
       objectReference: {fileID: 1021936421}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: habitatOffset.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
+      propertyPath: riverBankPrefab
+      value: 
+      objectReference: {fileID: 1226453559}
     - target: {fileID: -2801448996557972183, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: factsCloseButton
       value: 
@@ -14651,6 +14732,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206912251}
   m_CullTransparentMesh: 1
+--- !u!1 &1226453559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2063600364471944932, guid: 89eddff204d7df94c869fd47861c1702, type: 3}
+  m_PrefabInstance: {fileID: 477586072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1247445118
 GameObject:
   m_ObjectHideFlags: 0
@@ -15170,6 +15256,8 @@ MonoBehaviour:
   statusUI: {fileID: 788159731}
   uiOffset: {x: 0, y: 0.55, z: 0}
   tapDetectionRadius: 0.4
+  riverBankPrefab: {fileID: 0}
+  habitatOffset: {x: 2, y: 0, z: 0}
   arCamera: {fileID: 352190453}
   factsButton: {fileID: 0}
   habitatButton: {fileID: 0}
@@ -20717,7 +20805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1901719931
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24363,3 +24451,4 @@ SceneRoots:
   - {fileID: 1105634592}
   - {fileID: 1274863858}
   - {fileID: 171864911}
+  - {fileID: 1104096930}
