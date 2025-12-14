@@ -378,6 +378,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 791397012947982618, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
   m_PrefabInstance: {fileID: 25263085}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &25263088 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5865099264268480235, guid: 063cc896506b947c7b2c2ae3beb5868f, type: 3}
+  m_PrefabInstance: {fileID: 25263085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &26449793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,7 +4113,7 @@ RectTransform:
   m_Father: {fileID: 442652854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8151,7 +8162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &595971758
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11936,7 +11947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &825349214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14017,7 +14028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &924412003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14088,20 +14099,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924412002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5559103, y: 2.5559103, z: 2.5559103}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 234160370}
   - {fileID: 825349214}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2099970469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 800}
+  m_SizeDelta: {x: 313, y: 626}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &947247389
 GameObject:
   m_ObjectHideFlags: 0
@@ -22430,7 +22441,7 @@ RectTransform:
   m_Father: {fileID: 800066265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -25876,7 +25887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1834284675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29717,6 +29728,7 @@ GameObject:
   - component: {fileID: 2099970466}
   - component: {fileID: 2099970472}
   - component: {fileID: 2099970471}
+  - component: {fileID: 2099970473}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -29809,6 +29821,7 @@ RectTransform:
   - {fileID: 517037430}
   - {fileID: 239212525}
   - {fileID: 1024622694}
+  - {fileID: 924412006}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -29890,6 +29903,28 @@ MonoBehaviour:
     m_InputActionReference: {fileID: -7530398834462728267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: {x: 0, y: 0}
+--- !u!114 &2099970473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099970465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7bbb34c7d215e47a0b07fd6d52fec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalBirdSpecies: 2
+  requireFeeding: 0
+  objectiveText: {fileID: 860300921}
+  progressBar: {fileID: 234160371}
+  progressText: {fileID: 0}
+  taskFeedbackPopup: {fileID: 825349213}
+  feedbackText: {fileID: 2120318230}
+  completionScreen: {fileID: 517037429}
+  returnToStartButton: {fileID: 25263088}
+  trackedImageManager: {fileID: 1505706919}
 --- !u!1 &2116170431
 GameObject:
   m_ObjectHideFlags: 0
@@ -31200,5 +31235,4 @@ SceneRoots:
   - {fileID: 1805119563}
   - {fileID: 189945047}
   - {fileID: 1438436314}
-  - {fileID: 924412006}
   - {fileID: 1516566094}
