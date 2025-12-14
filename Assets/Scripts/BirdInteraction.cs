@@ -19,7 +19,7 @@ public class BirdInteraction : MonoBehaviour
     [SerializeField] private Camera arCamera; 
 
     // --------------------------
-    // Main Status UI Buttons/Panels
+    // Main Status UI Buttons/Panels (unchanged)
     // --------------------------
     [Header("Main Detail Panel Buttons (Status UI)")]
     [SerializeField] private Button factsButton; 
@@ -40,22 +40,22 @@ public class BirdInteraction : MonoBehaviour
     [SerializeField] private Button bodyPartCloseButton;// Close parent Body Parts panel
 
     // --------------------------
-    // Body Part Sub-Panels (Beak/Feathers/Wings)
+    // Body Part Sub-Panels (Beak/Feathers/Wings) (unchanged)
     // --------------------------
     [Header("Body Part Sub-Buttons (Inside BodyPart Panel)")]
-    [SerializeField] private Button beakButton;       // Assign Beak button (in BodyPart panel)
-    [SerializeField] private Button feathersButton;   // Assign Feathers button (in BodyPart panel)
-    [SerializeField] private Button wingsButton;      // Assign Wings button (in BodyPart panel)
+    [SerializeField] private Button beakButton;       
+    [SerializeField] private Button feathersButton;   
+    [SerializeField] private Button wingsButton;      
 
     [Header("Body Part Sub-Panels")]
-    [SerializeField] private GameObject beakUI;       // Assign Beak detail UI
-    [SerializeField] private GameObject feathersUI;   // Assign Feathers detail UI
-    [SerializeField] private GameObject wingsUI;      // Assign Wings detail UI
+    [SerializeField] private GameObject beakUI;       
+    [SerializeField] private GameObject feathersUI;   
+    [SerializeField] private GameObject wingsUI;      
 
     [Header("Body Part Sub-Panel Close Buttons")]
-    [SerializeField] private Button beakCloseButton;     // Assign Beak UI close button
-    [SerializeField] private Button feathersCloseButton; // Assign Feathers UI close button
-    [SerializeField] private Button wingsCloseButton;    // Assign Wings UI close button
+    [SerializeField] private Button beakCloseButton;     
+    [SerializeField] private Button feathersCloseButton; 
+    [SerializeField] private Button wingsCloseButton;    
 
     private InputAction tapAction;
     private GameObject spawnedRiverBank; // Track the instantiated river bank
@@ -70,24 +70,17 @@ public class BirdInteraction : MonoBehaviour
         if (arCamera == null)
             arCamera = FindFirstObjectByType<ARCameraManager>()?.GetComponent<Camera>() ?? Camera.main;
 
-        // Initialize river bank (hidden initially)
-        if (riverBankPrefab != null)
-        {
-            spawnedRiverBank = Instantiate(riverBankPrefab);
-            spawnedRiverBank.SetActive(false);
-            spawnedRiverBank.transform.SetParent(birdPrefab.transform); // Parent to bird (critical!)
-        }
-
+        // DO NOT instantiate river bank at Start() (fix #4)
+        // spawnedRiverBank = Instantiate(riverBankPrefab); // REMOVED
+        
         // Initialize core systems
         SetupTapInput();
         HideAllMainPanels();
-        HideAllBodyPartSubPanels(); // Hide sub-panels on start
+        HideAllBodyPartSubPanels(); 
 
-        // Link main panel buttons/close buttons
+        // Link buttons (unchanged)
         SetupMainPanelButtons();
         SetupMainPanelCloseButtons();
-
-        // Link body part sub-panel buttons/close buttons
         SetupBodyPartSubPanelButtons();
         SetupBodyPartSubPanelCloseButtons();
     }
@@ -96,9 +89,7 @@ public class BirdInteraction : MonoBehaviour
     void SetupTapInput()
     {
         tapAction = new InputAction("Tap", InputActionType.Button);
-        // Mobile: Raw touch press (more reliable than "tap" on mobile)
         tapAction.AddBinding("<TouchScreen>/primaryTouch/press");
-        // PC: Keep mouse click
         tapAction.AddBinding("<Mouse>/leftButton");
         tapAction.performed += OnBirdTapDetected;
         tapAction.Enable();
@@ -121,42 +112,67 @@ public class BirdInteraction : MonoBehaviour
         habitatCloseButton?.onClick.AddListener(() => 
         {
             CloseSpecificMainPanel(habitatPanel);
-            HideRiverBank(); // Hide river bank when closing habitat panel
+            HideRiverBank(); 
         });
         dietCloseButton?.onClick.AddListener(() => CloseSpecificMainPanel(dietPanel));
         bodyPartCloseButton?.onClick.AddListener(() => 
         {
             CloseSpecificMainPanel(bodyPartPanel);
-            HideAllBodyPartSubPanels(); // Hide sub-panels when closing parent BodyPart panel
+            HideAllBodyPartSubPanels(); 
         });
     }
 
-    // New method to handle habitat toggle
+    // Fixed: ToggleHabitat (dynamic river bank instantiation)
     void ToggleHabitat()
     {
-        if (spawnedRiverBank == null)
+        // Fix #1/#4: Recheck birdPrefab and riverBankPrefab EVERY time habitat is pressed
+        if (birdPrefab == null)
+        {
+            Debug.LogWarning("Bird prefab not assigned!");
+            return;
+        }
+        if (riverBankPrefab == null)
         {
             Debug.LogWarning("River bank prefab not assigned!");
             return;
         }
 
-        if (spawnedRiverBank.activeSelf)
+        // If river bank exists: toggle it
+        if (spawnedRiverBank != null)
         {
-            HideRiverBank();
-            CloseSpecificMainPanel(habitatPanel);
+            if (spawnedRiverBank.activeSelf)
+            {
+                HideRiverBank();
+                CloseSpecificMainPanel(habitatPanel);
+            }
+            else
+            {
+                ShowRiverBank(); // Re-position existing river bank
+                ShowSpecificMainPanel(habitatPanel);
+            }
         }
         else
         {
-            ShowRiverBank();
+            // Instantiate river bank ONLY when needed (fix #4)
+            spawnedRiverBank = Instantiate(riverBankPrefab);
+            spawnedRiverBank.SetActive(false);
+            ShowRiverBank(); // Show it immediately
             ShowSpecificMainPanel(habitatPanel);
         }
     }
 
+    // Fixed: ShowRiverBank (dynamic parenting + recheck birdPrefab)
     void ShowRiverBank()
     {
-        if (birdPrefab == null || spawnedRiverBank == null) 
+        // Fix #2: Recheck birdPrefab is valid (active + not null)
+        if (birdPrefab == null || !birdPrefab.activeInHierarchy) 
         {
-            Debug.LogError("Bird/River Bank prefab missing!");
+            Debug.LogError("Bird prefab is null or inactive!");
+            return;
+        }
+        if (spawnedRiverBank == null) 
+        {
+            Debug.LogError("River Bank prefab not instantiated!");
             return;
         }
 
@@ -164,10 +180,13 @@ public class BirdInteraction : MonoBehaviour
         Debug.Log($"Bird Position: {birdPrefab.transform.position}");
         Debug.Log($"River Bank Position: {birdPrefab.transform.position + habitatOffset}");
         
+        // Fix #1: Reparent river bank to CURRENT birdPrefab (male/female)
+        spawnedRiverBank.transform.SetParent(birdPrefab.transform); 
+        
         // Force-set position/scale/rotation
         spawnedRiverBank.transform.position = birdPrefab.transform.position + habitatOffset;
-        spawnedRiverBank.transform.rotation = Quaternion.identity; // Reset rotation (no weird angles)
-        spawnedRiverBank.transform.localScale = Vector3.one; // Force 1:1 scale
+        spawnedRiverBank.transform.rotation = Quaternion.identity; 
+        spawnedRiverBank.transform.localScale = Vector3.one; 
         spawnedRiverBank.SetActive(true);
         
         Debug.Log("River bank ACTIVATED – check position/scale in Scene view!");
@@ -182,6 +201,7 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
+    // Remaining panel logic (unchanged)
     void ShowSpecificMainPanel(GameObject targetPanel)
     {
         if (targetPanel == null)
@@ -191,7 +211,7 @@ public class BirdInteraction : MonoBehaviour
         }
 
         HideAllMainPanels();
-        HideAllBodyPartSubPanels(); // Hide sub-panels when switching main panels
+        HideAllBodyPartSubPanels(); 
         targetPanel.SetActive(true);
         Debug.Log($"Showing main panel: {targetPanel.name}");
     }
@@ -217,11 +237,10 @@ public class BirdInteraction : MonoBehaviour
     }
 
     // --------------------------
-    // Body Part Sub-Panel Logic (Beak/Feathers/Wings)
+    // Body Part Sub-Panel Logic (unchanged)
     // --------------------------
     void SetupBodyPartSubPanelButtons()
     {
-        // Link sub-buttons to show their specific UI (hide other sub-panels first)
         beakButton?.onClick.AddListener(() => ShowSpecificBodyPartSubPanel(beakUI));
         feathersButton?.onClick.AddListener(() => ShowSpecificBodyPartSubPanel(feathersUI));
         wingsButton?.onClick.AddListener(() => ShowSpecificBodyPartSubPanel(wingsUI));
@@ -229,7 +248,6 @@ public class BirdInteraction : MonoBehaviour
 
     void SetupBodyPartSubPanelCloseButtons()
     {
-        // Unique close buttons for each sub-panel
         beakCloseButton?.onClick.AddListener(() => CloseSpecificBodyPartSubPanel(beakUI));
         feathersCloseButton?.onClick.AddListener(() => CloseSpecificBodyPartSubPanel(feathersUI));
         wingsCloseButton?.onClick.AddListener(() => CloseSpecificBodyPartSubPanel(wingsUI));
@@ -268,13 +286,19 @@ public class BirdInteraction : MonoBehaviour
     }
 
     // --------------------------
-    // Original Bird Tap/UI Logic (unchanged)
+    // Fixed: Tap Detection (dynamic bird check)
     // --------------------------
     void OnBirdTapDetected(InputAction.CallbackContext context)
     {
-        if (birdPrefab == null || !birdPrefab.activeInHierarchy || statusUI == null || arCamera == null)
+        // Fix #2: Recheck birdPrefab is active/valid EVERY tap
+        if (birdPrefab == null || !birdPrefab.activeInHierarchy)
         {
-            Debug.LogWarning("Bird prefab/UI not assigned or bird is inactive!");
+            Debug.LogWarning("Bird prefab is null or inactive (female/male)!");
+            return;
+        }
+        if (statusUI == null || arCamera == null)
+        {
+            Debug.LogWarning("Status UI/AR Camera not assigned!");
             return;
         }
 
@@ -296,7 +320,7 @@ public class BirdInteraction : MonoBehaviour
         }
     }
 
-    // Fixed: Add null check for Touchscreen/Mouse (prevent mobile crashes)
+    // Fixed: Input position (unchanged)
     Vector2 GetInputPosition()
     {
         if (Touchscreen.current != null && Touchscreen.current.enabled)
@@ -310,26 +334,34 @@ public class BirdInteraction : MonoBehaviour
         return Vector2.zero;
     }
 
+    // Fixed: ToggleUI (dynamic bird position)
     void ToggleUI()
     {
+        // Fix #2: Recheck birdPrefab before positioning UI
+        if (birdPrefab == null || !birdPrefab.activeInHierarchy)
+        {
+            Debug.LogWarning("Cannot position UI: bird prefab is inactive/null!");
+            return;
+        }
+
         statusUI.SetActive(!statusUI.activeSelf);
         
-        // Hide ALL panels (main + sub) and river bank when Status UI is closed
         if (!statusUI.activeSelf)
         {
             HideAllMainPanels();
             HideAllBodyPartSubPanels();
             HideRiverBank();
         }
-
-        if (statusUI.activeSelf)
+        else
         {
+            // Position UI relative to CURRENT birdPrefab (male/female)
             statusUI.transform.position = birdPrefab.transform.position + uiOffset;
             statusUI.transform.LookAt(arCamera.transform);
             statusUI.transform.Rotate(0, 180, 0);
         }
     }
 
+    // Cleanup (unchanged)
     void OnDestroy()
     {
         tapAction?.Dispose();

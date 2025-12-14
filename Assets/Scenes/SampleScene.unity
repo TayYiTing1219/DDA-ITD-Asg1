@@ -902,7 +902,7 @@ GameObject:
   - component: {fileID: 47316750}
   - component: {fileID: 47316749}
   m_Layer: 5
-  m_Name: Status_UI
+  m_Name: Female_Status_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1098,7 +1098,7 @@ GameObject:
   - component: {fileID: 54087507}
   - component: {fileID: 54087506}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Feathers_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1218,12 +1218,12 @@ GameObject:
   - component: {fileID: 68835207}
   - component: {fileID: 68835206}
   m_Layer: 5
-  m_Name: BodyParts_Panel
+  m_Name: Female_BodyParts_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &68835205
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1455,7 +1455,7 @@ GameObject:
   - component: {fileID: 76394706}
   - component: {fileID: 76394705}
   m_Layer: 5
-  m_Name: Habitat_Button
+  m_Name: Male_Habitat_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5380,7 +5380,7 @@ GameObject:
   - component: {fileID: 411859801}
   - component: {fileID: 411859800}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Beak_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5501,7 +5501,7 @@ GameObject:
   - component: {fileID: 412081966}
   - component: {fileID: 412081965}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_BodyParts_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5622,7 +5622,7 @@ GameObject:
   - component: {fileID: 413934851}
   - component: {fileID: 413934850}
   m_Layer: 5
-  m_Name: Facts_Button
+  m_Name: Male_Facts_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7002,7 +7002,7 @@ GameObject:
   - component: {fileID: 545677963}
   - component: {fileID: 545677962}
   m_Layer: 5
-  m_Name: Wings_Button
+  m_Name: Male_Wings_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8084,7 +8084,7 @@ GameObject:
   - component: {fileID: 609818760}
   - component: {fileID: 609818759}
   m_Layer: 5
-  m_Name: Beak_Button
+  m_Name: Female_Beak_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8479,7 +8479,7 @@ GameObject:
   - component: {fileID: 628048769}
   - component: {fileID: 628048768}
   m_Layer: 5
-  m_Name: Type_Name_Panel
+  m_Name: Female_Type_Name_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9457,7 +9457,7 @@ GameObject:
   - component: {fileID: 788159733}
   - component: {fileID: 788159732}
   m_Layer: 5
-  m_Name: Status_UI
+  m_Name: Male_Status_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9728,7 +9728,7 @@ GameObject:
   - component: {fileID: 801215171}
   - component: {fileID: 801215170}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Habitat_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9849,7 +9849,7 @@ GameObject:
   - component: {fileID: 801766977}
   - component: {fileID: 801766976}
   m_Layer: 5
-  m_Name: Feathers_Button
+  m_Name: Male_Feathers_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10081,7 +10081,7 @@ GameObject:
   - component: {fileID: 813132328}
   - component: {fileID: 813132327}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Wings_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11592,7 +11592,7 @@ GameObject:
   - component: {fileID: 891534845}
   - component: {fileID: 891534844}
   m_Layer: 5
-  m_Name: Feathers_Button
+  m_Name: Female_Feathers_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11713,7 +11713,7 @@ GameObject:
   - component: {fileID: 891863143}
   - component: {fileID: 891863142}
   m_Layer: 5
-  m_Name: Habitat_Panel
+  m_Name: Male_Habitat_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11792,7 +11792,7 @@ GameObject:
   - component: {fileID: 905894754}
   - component: {fileID: 905894753}
   m_Layer: 5
-  m_Name: Habitat_Button
+  m_Name: Female_Habitat_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14065,7 +14065,7 @@ GameObject:
   - component: {fileID: 1021936422}
   - component: {fileID: 1021936421}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Diet_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14648,7 +14648,7 @@ GameObject:
   - component: {fileID: 1056395220}
   - component: {fileID: 1056395219}
   m_Layer: 5
-  m_Name: Diet_Button
+  m_Name: Male_Diet_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15011,7 +15011,7 @@ GameObject:
   - component: {fileID: 1076773233}
   - component: {fileID: 1076773232}
   m_Layer: 5
-  m_Name: BodyParts_Button
+  m_Name: Male_BodyParts_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15833,7 +15833,7 @@ GameObject:
   - component: {fileID: 1097936079}
   - component: {fileID: 1097936078}
   m_Layer: 5
-  m_Name: Beak_Button
+  m_Name: Male_Beak_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16200,7 +16200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2328616533673627572, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2963662054703390066, guid: f00188e27cd09ba43b0af84b38c19e3d, type: 3}
       propertyPath: m_LocalScale.x
@@ -16590,7 +16590,7 @@ GameObject:
   - component: {fileID: 1126810559}
   - component: {fileID: 1126810558}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Feather_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16710,7 +16710,7 @@ GameObject:
   - component: {fileID: 1136560076}
   - component: {fileID: 1136560075}
   m_Layer: 5
-  m_Name: Type_Name_Panel
+  m_Name: Male_Type_Name_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17168,7 +17168,7 @@ GameObject:
   - component: {fileID: 1175982379}
   - component: {fileID: 1175982378}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Facts_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17289,7 +17289,7 @@ GameObject:
   - component: {fileID: 1206912254}
   - component: {fileID: 1206912253}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Habitat_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17775,7 +17775,7 @@ GameObject:
   - component: {fileID: 1264379429}
   - component: {fileID: 1264379428}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Facts_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18019,78 +18019,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265049078}
   m_CullTransparentMesh: 1
---- !u!1 &1274863856
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1274863858}
-  - component: {fileID: 1274863857}
-  m_Layer: 0
-  m_Name: Bird Interaction Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1274863857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274863856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1986529aca6f2149963c3158111067d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  birdPrefab: {fileID: 8538264219990731754}
-  statusUI: {fileID: 788159731}
-  uiOffset: {x: 0, y: 0.55, z: 0}
-  tapDetectionRadius: 0.4
-  riverBankPrefab: {fileID: 0}
-  habitatOffset: {x: 2, y: 0, z: 0}
-  arCamera: {fileID: 352190453}
-  factsButton: {fileID: 0}
-  habitatButton: {fileID: 0}
-  dietButton: {fileID: 0}
-  bodyPartButton: {fileID: 0}
-  factsPanel: {fileID: 1971726757}
-  habitatPanel: {fileID: 891863140}
-  dietPanel: {fileID: 1670032369}
-  bodyPartPanel: {fileID: 1901719930}
-  factsCloseButton: {fileID: 0}
-  habitatCloseButton: {fileID: 0}
-  dietCloseButton: {fileID: 0}
-  bodyPartCloseButton: {fileID: 0}
-  beakButton: {fileID: 0}
-  feathersButton: {fileID: 0}
-  wingsButton: {fileID: 0}
-  beakUI: {fileID: 0}
-  feathersUI: {fileID: 0}
-  wingsUI: {fileID: 0}
-  beakCloseButton: {fileID: 0}
-  feathersCloseButton: {fileID: 0}
-  wingsCloseButton: {fileID: 0}
---- !u!4 &1274863858
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274863856}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.063465215, y: 1.0998605, z: 0.6505369}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1309057132
 GameObject:
   m_ObjectHideFlags: 0
@@ -18463,7 +18391,7 @@ GameObject:
   - component: {fileID: 1344781807}
   - component: {fileID: 1344781806}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Beak_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20676,7 +20604,7 @@ GameObject:
   - component: {fileID: 1538880195}
   - component: {fileID: 1538880194}
   m_Layer: 5
-  m_Name: Diet_Button
+  m_Name: Female_Diet_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20908,7 +20836,7 @@ GameObject:
   - component: {fileID: 1591911888}
   - component: {fileID: 1591911887}
   m_Layer: 5
-  m_Name: Wings_Button
+  m_Name: Female_Wings_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21438,7 +21366,7 @@ GameObject:
   - component: {fileID: 1619502406}
   - component: {fileID: 1619502405}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Male_Wings_UI_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21907,7 +21835,7 @@ GameObject:
   - component: {fileID: 1652755812}
   - component: {fileID: 1652755811}
   m_Layer: 5
-  m_Name: BodyParts_Button
+  m_Name: Female_BodyParts_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22027,7 +21955,7 @@ GameObject:
   - component: {fileID: 1670032372}
   - component: {fileID: 1670032371}
   m_Layer: 5
-  m_Name: Diet_Panel
+  m_Name: Male_Diet_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22379,7 +22307,7 @@ GameObject:
   - component: {fileID: 1705701328}
   - component: {fileID: 1705701327}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_BodyParts_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22636,7 +22564,7 @@ GameObject:
   - component: {fileID: 1729958258}
   - component: {fileID: 1729958257}
   m_Layer: 5
-  m_Name: Facts_Button
+  m_Name: Female_Facts_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22756,7 +22684,7 @@ GameObject:
   - component: {fileID: 1740309802}
   - component: {fileID: 1740309801}
   m_Layer: 5
-  m_Name: Facts_Panel
+  m_Name: Female_Facts_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23457,6 +23385,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2006068356}
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: beakButton
       value: 
       objectReference: {fileID: 609818759}
@@ -23507,7 +23439,7 @@ PrefabInstance:
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: beakCloseButton
       value: 
-      objectReference: {fileID: 411859800}
+      objectReference: {fileID: 1344781806}
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: dietCloseButton
       value: 
@@ -23527,7 +23459,7 @@ PrefabInstance:
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: wingsCloseButton
       value: 
-      objectReference: {fileID: 1619502405}
+      objectReference: {fileID: 813132327}
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: habitatCloseButton
       value: 
@@ -23543,10 +23475,14 @@ PrefabInstance:
     - target: {fileID: -7755794418225910459, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: feathersCloseButton
       value: 
-      objectReference: {fileID: 54087506}
+      objectReference: {fileID: 1126810558}
     - target: {fileID: 3714068063490898478, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: m_Name
       value: femaleKingfisher
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714068063490898478, guid: 810065ceb21445742a881a7880574bfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4089503298943393940, guid: 810065ceb21445742a881a7880574bfb, type: 3}
       propertyPath: m_LocalScale.x
@@ -24357,7 +24293,7 @@ GameObject:
   - component: {fileID: 1901719933}
   - component: {fileID: 1901719932}
   m_Layer: 5
-  m_Name: BodyParts_Panel
+  m_Name: Male_BodyParts_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24790,7 +24726,7 @@ GameObject:
   - component: {fileID: 1939780507}
   - component: {fileID: 1939780506}
   m_Layer: 5
-  m_Name: Habitat_Panel
+  m_Name: Female_Habitat_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25427,7 +25363,7 @@ GameObject:
   - component: {fileID: 1971726760}
   - component: {fileID: 1971726759}
   m_Layer: 5
-  m_Name: Facts_Panel
+  m_Name: Male_Facts_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25940,7 +25876,7 @@ GameObject:
   - component: {fileID: 2006068359}
   - component: {fileID: 2006068358}
   m_Layer: 5
-  m_Name: Diet_Panel
+  m_Name: Female_Diet_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27061,7 +26997,7 @@ GameObject:
   - component: {fileID: 2078124930}
   - component: {fileID: 2078124929}
   m_Layer: 5
-  m_Name: Close_Button
+  m_Name: Female_Diet_Close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28845,5 +28781,4 @@ SceneRoots:
   - {fileID: 2939205008122504817}
   - {fileID: 1105634592}
   - {fileID: 1805119563}
-  - {fileID: 1274863858}
   - {fileID: 171864911}
