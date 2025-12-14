@@ -15,6 +15,8 @@ public class ARBirdProgressManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI objectiveText;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private Slider progressBar1;
+    [SerializeField] private Slider progressBar2;
     [SerializeField] private TextMeshProUGUI progressText;
     [SerializeField] private GameObject taskFeedbackPopup;
     [SerializeField] private TextMeshProUGUI feedbackText;
@@ -122,6 +124,9 @@ public class ARBirdProgressManager : MonoBehaviour
                     // Show feedback and update progress
                     ShowTaskFeedback($"Scanned {birdName}!");
                     UpdateProgress();
+                    progressBar.gameObject.SetActive(false);
+                    progressBar1.gameObject.SetActive(false);
+                    progressBar.gameObject.SetActive(false);
 
                     // Debug: Confirm scan
                     Debug.Log($"Scanned {birdName} | Total Scanned: {scannedBirdsCount}/{totalBirdSpecies}");

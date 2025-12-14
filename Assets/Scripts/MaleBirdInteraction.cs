@@ -61,6 +61,10 @@ public class MaleBirdInteraction : MonoBehaviour
     [SerializeField] private Button feathersCloseButton; 
     [SerializeField] private Button wingsCloseButton;    
 
+    [SerializeField] public GameObject progressBar;
+    [SerializeField] public GameObject progressBar1;
+    [SerializeField] public GameObject progressBar2;
+
     private InputAction tapAction;
     private GameObject spawnedRiverBank; 
 
@@ -97,6 +101,13 @@ public class MaleBirdInteraction : MonoBehaviour
             Debug.LogError("Critical setup missing - script disabled!");
             this.enabled = false; // Disable script to prevent further errors
         }
+    }
+    public void ObjectiveCompleted()
+    {
+        progressBar1.SetActive(false);
+        progressBar2.SetActive(true);
+        // Optional: Add any special effects when objective is completed
+        Debug.Log("Objective completed effects triggered!");
     }
 
     // Public method to play button click sound (call from On Click())

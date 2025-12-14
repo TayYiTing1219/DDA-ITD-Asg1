@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.UI;
 
+
 public class FemaleBirdInteraction : MonoBehaviour
 {
     [Header("Bird & Core UI Setup")]
@@ -61,6 +62,10 @@ public class FemaleBirdInteraction : MonoBehaviour
     [SerializeField] private Button feathersCloseButton; 
     [SerializeField] private Button wingsCloseButton;    
 
+
+    [SerializeField] public GameObject progressBar;
+    [SerializeField] public GameObject progressBar1;
+    [SerializeField] public GameObject progressBar2;
     private InputAction tapAction;
     private GameObject spawnedRiverBank; 
 
@@ -109,7 +114,13 @@ public class FemaleBirdInteraction : MonoBehaviour
         }
     }
 
-
+    public void ObjectiveCompleted()
+    {
+        progressBar.SetActive(false);
+        progressBar1.SetActive(true);
+        // Optional: Add any special effects when objective is completed
+        Debug.Log("Objective completed effects triggered!");
+    }
     // --------------------------
     // Critical Validation (Fix Null References)
     // --------------------------
